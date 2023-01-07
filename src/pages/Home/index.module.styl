@@ -1,0 +1,204 @@
+@import '../../variables.styl'
+
+.top
+    display flex
+    justify-content space-between
+    align-items center
+
+.navigation
+    flex-grow 1
+    display flex
+    align-items center
+    gap: 8px
+    &__item
+        padding 14px 27px
+        border: 0
+        font-weight 700
+        font-size 16px
+        letter-spacing .015em
+        border-radius 30px
+        cursor pointer
+        transition .2s background ease-in, .2s color ease-in
+        &:hover
+            background dark
+            color white
+        &-active
+            background-color dark
+            color white
+
+.select
+    position relative
+    &__button
+        background 0
+        border 0
+        padding 0
+        font-size 14px
+        cursor pointer
+        &:hover
+            b
+                color orange
+            img
+                transform rotate(90deg) !important
+        img
+            margin-right 7px
+            transition .123s transform ease-in
+        b
+            transition .123s color ease-in
+            letter-spacing: 0.015em;
+            margin-right 8px
+        span
+            letter-spacing: 0.015em;
+            color orange
+            background-image: url("data:image/svg+xml,%3Csvg width='90' height='1' viewBox='0 0 90 1' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0.25' y='0.25' width='89.5' height='0.5' stroke='%23FE5F1E' stroke-width='0.5' stroke-dasharray='1 1'/%3E%3C/svg%3E");
+            background-size: auto 1px
+            background-position-y bottom
+            background-repeat repeat-x
+            padding-bottom 3px
+            margin-bottom -3px
+            display inline-block
+    &__list
+        display flex
+        flex-direction column
+        position absolute
+        right 0
+        top calc(100% + 10px)
+        padding 13px 0 9px
+        border-radius 10px
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.09);
+        overflow hidden
+        opacity 0
+        visibility hidden
+        transition .2s opacity ease-in,
+            .2s visibility ease-in
+        &-active
+            opacity 1
+            visibility visible
+            transition .3s opacity ease-in,
+                .3s visibility ease-in
+            .select__item
+                margin-top 0
+    &__item
+        margin-top -100%
+        background 0
+        border 0
+        padding 10px 22px 11px 14px
+        text-align left
+        cursor pointer
+        font-size 14px
+        letter-spacing .015em
+        transition .123s color ease-in,
+            .123s background ease-in,
+            .2s margin-top ease-in
+        &:not(&-active):hover
+            background black
+            color white
+        &-active
+            background rgba(254, 95, 30, 0.05)
+            color orange
+            font-weight 700
+
+.content
+    margin-top 32px
+
+.content__title
+    font-weight 700
+    font-size 32px
+    letter-spacing: 0.01em;
+    color BLACK
+    margin 0
+
+.pizzas
+    margin-top 35px
+    display grid
+    grid-template-columns: repeat(4, 1fr)
+    gap: 65px 35px
+
+.card
+    display flex
+    flex-direction column
+    transition .2s transform ease-in
+    &:hover
+        transform scale(1.02)
+    &__img
+        margin-bottom 11px
+    &__title
+        text-align center
+        font-size 20px
+        font-weight 800
+        letter-spacing: 0.01em;
+        color BLACK
+    &__choice
+        padding 7px 5px
+        background bg-gray
+        border-radius 10px
+        margin 22px 0 17px
+    &__selector
+        list-style none
+        padding 0
+        margin 0
+        display flex
+        justify-content space-between
+        gap: 5px
+        & + &
+            margin-top 7px
+    &__price
+        color BLACK
+        font-size 22px
+        font-weight 700
+        letter-spacing: 0.015em;
+        vertical-align middle
+    &__bottom
+        display flex
+        justify-content space-between
+        align-items center
+    &__button
+        border 1px solid orange
+        padding 9px 14px 9px 17px
+        background white
+        border-radius 30px
+        display inline-flex
+        align-items center
+        cursor pointer
+        font-size 16px
+        font-weight 700
+        color orange
+        transition .123s color ease-in, .123s background ease-in
+        &-secondary
+            padding 11px 18px
+        &:hover
+            color white
+            background orange
+            svg
+                fill white
+            span
+                color orange
+                background white
+        svg
+            margin-right 8px
+            fill orange
+            path
+                transition .123s fill ease-in
+        span
+            margin-left 6px
+            padding 3px 7px
+            border-radius 50%
+            color white
+            background orange
+            font-size 13px
+            font-weight 700
+            transition .123s background ease-in, .123s color ease-in
+
+.choice__item
+    flex-grow 1
+    text-align center
+    font-weight 700
+    font-size 14px
+    letter-spacing: 0.015em;
+    padding 10px 5px
+    border-radius 5px
+    cursor pointer
+    &-active
+        background white
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04)
+        cursor default
+            
