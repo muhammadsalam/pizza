@@ -1,10 +1,17 @@
 import { useState } from "react";
 import styles from "./index.module.styl";
 
-function Card({ title, pizzaUrl, price }) {
-	const [amount, setAmount] = useState(0);
+function Card({ title, pizzaUrl, price, sizes, types }) {
+	const typeNames = ["тонкое", "традиционное"];
 
+	const [amount, setAmount] = useState(0);
 	const handleAmountPlus = () => setAmount(amount + 1);
+
+	const [activeType, setActiveType] = useState(0);
+	const [activeSize, setActiveSize] = useState(0);
+
+	const handleActiveSize = (size) => setActiveSize(size);
+	const handleActiveType = (type) => setActiveType(type);
 
 	return (
 		<div className={styles.card}>
@@ -12,21 +19,30 @@ function Card({ title, pizzaUrl, price }) {
 			<span className={styles.card__title}>{title}</span>
 			<div className={styles.card__choice}>
 				<ul className={styles.card__selector}>
-					<li
-						className={`${styles.choice__item} ${styles["choice__item-active"]}`}
-					>
-						тонкое
-					</li>
-					<li className={styles.choice__item}>традиционное</li>
+					{types.map((item, index) => (
+						<li
+							key={index}
+							onClick={() => handleActiveType(index)}
+							className={
+								+activeType === +index ? styles.active : ""
+							}
+						>
+							{typeNames[item]}
+						</li>
+					))}
 				</ul>
 				<ul className={styles.card__selector}>
-					<li
-						className={`${styles.choice__item} ${styles["choice__item-active"]}`}
-					>
-						26 см.
-					</li>
-					<li className={styles.choice__item}>30 см.</li>
-					<li className={styles.choice__item}>40 см.</li>
+					{sizes.map((item, index) => (
+						<li
+							key={index}
+							onClick={() => handleActiveSize(index)}
+							className={
+								+activeSize === +index ? styles.active : ""
+							}
+						>
+							{item} см.
+						</li>
+					))}
 				</ul>
 			</div>
 			<div className={styles.card__bottom}>

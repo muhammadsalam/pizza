@@ -29,6 +29,20 @@
         gap: 5px
         & + &
             margin-top 7px
+        li
+            flex-grow 1
+            text-align center
+            font-weight 700
+            font-size 14px
+            letter-spacing: 0.015em;
+            padding 10px 5px
+            border-radius 5px
+            cursor pointer
+            &.active
+                background white
+                box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04)
+                cursor default
+
     &__price
         color BLACK
         font-size 22px
@@ -78,17 +92,3 @@
             font-size 13px
             font-weight 700
             transition .123s background ease-in, .123s color ease-in
-
-.choice__item
-    flex-grow 1
-    text-align center
-    font-weight 700
-    font-size 14px
-    letter-spacing: 0.015em;
-    padding 10px 5px
-    border-radius 5px
-    cursor pointer
-    &-active
-        background white
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04)
-        cursor default
