@@ -1,0 +1,94 @@
+@import '../../variables.styl';
+
+.card
+    display flex
+    flex-direction column
+    transition .2s transform ease-in
+    will-change: transform
+    &:hover
+        transform scale(1.02)
+    &__img
+        margin-bottom 11px
+    &__title
+        text-align center
+        font-size 20px
+        font-weight 800
+        letter-spacing: 0.01em;
+        color BLACK
+    &__choice
+        padding 7px 5px
+        background bg-gray
+        border-radius 10px
+        margin 22px 0 17px
+    &__selector
+        list-style none
+        padding 0
+        margin 0
+        display flex
+        justify-content space-between
+        gap: 5px
+        & + &
+            margin-top 7px
+    &__price
+        color BLACK
+        font-size 22px
+        font-weight 700
+        letter-spacing: 0.015em;
+        vertical-align middle
+    &__bottom
+        display flex
+        justify-content space-between
+        align-items center
+    &__button
+        border 1px solid orange
+        padding 9px 14px 9px 17px
+        background white
+        border-radius 30px
+        display inline-flex
+        align-items center
+        cursor pointer
+        font-size 16px
+        font-weight 700
+        color orange
+        transition .123s color ease-in, .123s background ease-in
+        &:hover
+            color white
+            background orange
+            svg
+                fill white
+            span
+                color orange
+                background white
+        svg
+            margin-right 8px
+            fill orange
+            path
+                transition .123s fill ease-in
+        span
+            line-height 0
+            margin -100% 0 -100% 6px
+            width 28px
+            height 28px
+            display flex
+            justify-content center
+            align-items center
+            border-radius 50%
+            color white
+            background orange
+            font-size 13px
+            font-weight 700
+            transition .123s background ease-in, .123s color ease-in
+
+.choice__item
+    flex-grow 1
+    text-align center
+    font-weight 700
+    font-size 14px
+    letter-spacing: 0.015em;
+    padding 10px 5px
+    border-radius 5px
+    cursor pointer
+    &-active
+        background white
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04)
+        cursor default
