@@ -1,9 +1,17 @@
+import { useEffect, useState } from "react";
 import Card from "../../components/Card";
 import Top from "../../components/Top";
 import styles from "./index.module.styl";
-import pizzas from "../../data/pizzas.json";
 
 function Home() {
+	const [pizzas, setPizzas] = useState([]);
+
+	useEffect(() => {
+		fetch("https://63bd5257d660062388a18682.mockapi.io/items")
+			.then((res) => res.json())
+			.then((items) => setPizzas(items));
+	}, []);
+
 	const renderItems = () => {
 		return pizzas.map((item) => <Card key={item.id} {...item} />);
 	};
