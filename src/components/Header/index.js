@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 import styles from "./Header.module.styl";
 
 function Header() {
 	return (
 		<>
 			<header className={styles.header}>
-				<a href="/" className={styles.logo}>
+				<Link to="/" className={styles.logo}>
 					<img
 						className={styles.logo__img}
 						src="/img/logo.png"
@@ -14,8 +15,8 @@ function Header() {
 						<h1>react pizza</h1>
 						<p>самая вкусная пицца во вселенной</p>
 					</div>
-				</a>
-				<button className={styles.button}>
+				</Link>
+				<Link to="/cart" className={styles.button}>
 					<span className={styles.button__span}>520 ₽</span>
 					<hr className={styles.button__line} />
 					<div>
@@ -27,9 +28,9 @@ function Header() {
 						/>
 						<span className={styles.button__span}>3</span>
 					</div>
-				</button>
+				</Link>
 			</header>
-            <hr className={styles.line}/>
+			<hr className={styles.line} />
 		</>
 	);
 }
