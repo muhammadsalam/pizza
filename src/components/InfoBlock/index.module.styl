@@ -1,0 +1,51 @@
+@import '../../variables.styl';
+
+.block
+    margin 0 auto
+    flex: 1
+    display flex
+    align-items center
+    gap: 40px
+    & > img + .info
+        text-align left
+        align-items flex-start
+
+.info
+    display flex
+    flex-direction: column
+    max-width: 400px
+    text-align center
+    align-items center
+    img
+        margin-top 27px
+
+.title
+    font-size 32px
+    letter-spacing: 0.01em
+    color: BLACK
+    margin 0
+    span
+        display block
+        font-size 55px
+
+.description
+    margin 10px 0 0 0
+    font-size 18px
+    line-height: 145.4%;
+    letter-spacing: 0.01em;
+    color gray
+
+.button
+    font-size 16px
+    letter-spacing: 0.015em
+    padding 14px 38px
+    background-color dark
+    color white
+    border-radius: 30px
+    margin-top 43px
+    border: 0
+    cursor: pointer
+    transition: .123s background-color ease-in
+    text-decoration none
+    &:hover
+        background-color: orange
