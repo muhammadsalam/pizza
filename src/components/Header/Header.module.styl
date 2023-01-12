@@ -27,6 +27,7 @@
 .header
     display flex
     justify-content space-between
+    align-items center
 
 .logo
     color inherit
@@ -81,8 +82,23 @@
         font-weight 700
 
 .line
-    width calc(100% + 140px)
+    width calc(100% + calc(var(--container-offset) * 2))
     border 0
     height 0
     border-top 1px solid gray2
-    margin 35px 0 40px -70px
+    margin 35px 0 40px calc(-1 * var(--container-offset))
+
+@media (max-width: 768px)
+    .line
+        margin 15px 0 15px calc(-1 * var(--container-offset))
+
+@media (max-width: 530px)
+    .logo__text
+        margin-left 10px
+        h1
+            max-width: 80px
+        p
+            display none
+
+    .button__line
+        margin 0 7px

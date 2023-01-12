@@ -1,15 +1,20 @@
 @import '../../variables.styl'
 
 .top
-    display flex
-    justify-content space-between
+    display grid
+    grid-template-columns: minmax(280px, 1fr) auto
     align-items center
+    gap: 20px
 
 .navigation
     flex-grow 1
+    flex-shrink: 0
     display flex
+    overflow: auto
     align-items center
     gap: 8px
+    padding-bottom: 20px
+    margin-bottom -20px
     button
         padding 14px 27px
         border: 0
@@ -93,3 +98,13 @@
                 .3s visibility ease-in
             button
                 margin-top 0
+
+@media (max-width: 620px)
+    .top
+        display flex
+        flex-direction: column
+        align-items flex-start
+        gap: 30px
+
+    .navigation
+        width 100%
