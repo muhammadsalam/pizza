@@ -46,7 +46,7 @@ function Top() {
 		const selectorNames = ["популярности", "цене", "алфавиту"];
 		const [selectorId, setSelectorId] = useState(0);
 		const handleSelectorId = (id) => {
-			setIsSelectOpen(!isSelectOpen);
+			setIsSelectOpen((bool) => !bool);
 			setSelectorId(id);
 		};
 
