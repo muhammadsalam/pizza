@@ -1,0 +1,137 @@
+@import '../../variables.styl';
+
+.item
+    display flex
+    align-items center
+    color: BLACK
+    padding 30px 0
+    border-top 1px solid #F4F4F4
+    &__img
+        max-width: 80px
+    &__price
+        font-size 22px
+        letter-spacing: .01em
+        margin: 0 auto
+    &__close
+        background 0
+        border: 0
+        padding 0
+        margin 0
+        line-height 0
+        cursor pointer
+        transition: .123s opacity ease-in, .123s transform ease-in
+        width 32px
+        height 32px
+        img
+            max-width: 100%
+        span
+            display none
+        &:hover, &:focus
+            opacity: .8
+            transform: scale(1.05)
+        &:active
+            opacity: .6
+
+.info
+    margin-left 15px
+    max-width: 280px
+    flex-grow: 1
+    margin-right 10px
+    &__title
+        font-size 22px
+        letter-spacing: 0.01em
+        margin 0
+    &__description
+        margin 3px 0 0 0
+        font-size 18px
+        color: #8D8D8D
+        letter-spacing: 0.01em
+
+.nav
+    display flex
+    align-items center
+    gap: 12px
+    &__button
+        background 0
+        border: 0
+        padding 0
+        margin 0
+        line-height 0
+        cursor pointer
+        transition: .123s opacity ease-in, .123s transform ease-in
+        width 32px
+        height 32px
+        img
+            max-width: 100%
+        &:hover, &:focus
+            opacity: .8
+            transform: scale(1.05)
+        &:active
+            opacity: .6
+    &__span
+        font-size 22px
+        font-weight 700
+        letter-spacing: .01em
+
+@media (max-width: 768px)
+    .item
+        padding 20px 0
+        &__img
+            max-width: 40px
+        &__price
+            font-size 18px
+        &__close
+            width 24px
+
+    .info
+        max-width: 260px
+        &__title, &__description
+            font-size 18px
+    
+    .nav
+        &__span
+            font-size 18px
+        &__button
+            width 24px
+
+@media (max-width: 592px)
+    .item
+        &__price
+            font-size 16px
+    .info
+        max-width: 180px
+        &__title, &__description
+            font-size 16px
+    
+    .nav__span
+        font-size 16px
+
+@media (max-width: 480px)
+    .item
+        flex-wrap: wrap
+        row-gap: 20px
+        &__img
+            max-width: 100px
+        &__close
+            width auto
+            height auto
+            padding 8px 20px
+            background orange
+            color white
+            border-radius: 30px
+            line-height 100%
+            font-size 14px
+            img
+                display none
+            span
+                display block
+        &__price
+            order: 1
+
+    .info
+        max-width: 100%
+        width calc(100% - 115px)
+        margin-right 0
+
+    .nav
+        order: 2
