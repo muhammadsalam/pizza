@@ -1,53 +1,16 @@
 import { useState } from "react";
 import styles from "./index.module.styl";
 
-function Top() {
-	function Navigation() {
-		const [index, setIndex] = useState(0);
-
-		const getClass = (userIndex) =>
-			index === userIndex ? styles.active : "";
-
-		const onClickCategory = (index) => {
-			setIndex(index);
-		};
-
-		const categories = [
-			"Все",
-			"Мясные",
-			"Вегетарианская",
-			"Гриль",
-			"Острые",
-			"Закрытые",
-		];
-
-		const listRender = () => {
-			return categories.map((name, index) => {
-				return (
-					<button
-						key={index}
-						onClick={() => onClickCategory(index)}
-						className={getClass(index)}
-					>
-						{name}
-					</button>
-				);
-			});
-		};
-
-		return <nav className={styles.navigation}>{listRender()}</nav>;
-	}
-
+function Top({ categoryIndex, onClickCategory, sortType, setSortType }) {
 	function Selector() {
 		// Открытие и закрытие тулбара
 		const [isSelectOpen, setIsSelectOpen] = useState(false);
 		const handleSelectOpen = () => setIsSelectOpen(!isSelectOpen);
 
 		const selectorNames = ["популярности", "цене", "алфавиту"];
-		const [selectorId, setSelectorId] = useState(0);
-		const handleSelectorId = (id) => {
+		const handleSortType = (id) => {
 			setIsSelectOpen((bool) => !bool);
-			setSelectorId(id);
+			setSortType(id);
 		};
 
 		return (
@@ -62,7 +25,7 @@ function Top() {
 					/>
 					<b>Сортировка по:</b>
 					<button onClick={handleSelectOpen}>
-						{selectorNames[selectorId]}
+						{selectorNames[sortType]}
 					</button>
 				</div>
 				<div
@@ -72,9 +35,9 @@ function Top() {
 				>
 					{selectorNames.map((item, index) => (
 						<button
-							onClick={() => handleSelectorId(index)}
+							onClick={() => handleSortType(index)}
 							className={
-								selectorId === index
+								sortType === index
 									? styles["button-active"]
 									: ""
 							}
