@@ -1,6 +1,10 @@
+import { useContext } from "react";
+import { searchContext } from "../../App";
 import styles from "./index.module.styl";
 
-function Search({ searchValue, setSearchValue }) {
+function Search() {
+	const { searchValue, setSearchValue } = useContext(searchContext);
+
 	return (
 		<form
 			className={styles.form}

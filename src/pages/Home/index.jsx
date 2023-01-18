@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import styles from "./index.module.styl";
 
@@ -7,8 +7,11 @@ import Skeleton from "../../components/Card/Skeleton";
 import Category from "../../components/Category";
 import Selector from "../../components/Selector";
 import Pagination from "../../components/Pagination";
+import { searchContext } from "../../App";
 
-function Home({ searchValue, setSearchValue }) {
+function Home() {
+	const { searchValue } = useContext(searchContext);
+
 	const [pizzas, setPizzas] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 
