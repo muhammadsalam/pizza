@@ -7,7 +7,7 @@ import Skeleton from "../../components/Card/Skeleton";
 import Category from "../../components/Category";
 import Selector from "../../components/Selector";
 
-function Home() {
+function Home({ searchValue, setSearchValue }) {
 	const [pizzas, setPizzas] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -32,9 +32,10 @@ function Home() {
 		const category = categoryIndex > 0 ? `category=${categoryIndex}` : "";
 		const sort = sortType.property.replace("-", "");
 		const order = sortType.property.includes("-") ? "desc" : "asc";
+		const title = searchValue || "-";
 
 		fetch(
-			`https://63bd5257d660062388a18682.mockapi.io/items?${category}&sortBy=${sort}&order=${order}`
+			`https://63bd5257d660062388a18682.mockapi.io/items?${category}&title=${title}&sortBy=${sort}&order=${order}`
 		)
 			.then((res) => res.json())
 			.then((items) => setPizzas(items))
@@ -44,14 +45,16 @@ function Home() {
 				console.dir(error);
 				setIsLoading(false);
 			});
-	}, [categoryIndex, sortType]);
+	}, [categoryIndex, sortType, searchValue]);
 
 	const renderItems = () => {
-		if (isLoading)
-			return [...Array(4)].map((_, index) => (
-				<Skeleton className={styles.skeleton} key={index} />
-			));
-		return pizzas.map((item) => <Card key={item.id} {...item} />);
+		const pizItems = pizzas.map((item) => <Card key={item.id} {...item} />);
+		const skelItems = [...Array(4)].map((_, index) => (
+			<Skeleton className={styles.skeleton} key={index} />
+		));
+
+		if (isLoading) return skelItems;
+		return pizItems;
 	};
 
 	return (
