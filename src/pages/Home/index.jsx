@@ -6,6 +6,7 @@ import Card from "../../components/Card";
 import Skeleton from "../../components/Card/Skeleton";
 import Category from "../../components/Category";
 import Selector from "../../components/Selector";
+import Pagination from "../../components/Pagination";
 
 function Home({ searchValue, setSearchValue }) {
 	const [pizzas, setPizzas] = useState([]);
@@ -26,16 +27,18 @@ function Home({ searchValue, setSearchValue }) {
 		setSortType(index);
 	};
 
+	const [currentPage, setCurrentPage] = useState(1);
+
 	useEffect(() => {
 		setIsLoading(true);
 
-		const category = categoryIndex > 0 ? `category=${categoryIndex}` : "";
+		const category = categoryIndex > 0 ? `&category=${categoryIndex}` : "";
 		const sort = sortType.property.replace("-", "");
 		const order = sortType.property.includes("-") ? "desc" : "asc";
-		const title = searchValue || "-";
+		const title = searchValue ? searchValue : "";
 
 		fetch(
-			`https://63bd5257d660062388a18682.mockapi.io/items?${category}&title=${title}&sortBy=${sort}&order=${order}`
+			`https://63bd5257d660062388a18682.mockapi.io/items?page=${currentPage}&limit=4${category}&title=${title}&sortBy=${sort}&order=${order}`
 		)
 			.then((res) => res.json())
 			.then((items) => setPizzas(items))
@@ -45,7 +48,7 @@ function Home({ searchValue, setSearchValue }) {
 				console.dir(error);
 				setIsLoading(false);
 			});
-	}, [categoryIndex, sortType, searchValue]);
+	}, [categoryIndex, sortType, searchValue, currentPage]);
 
 	const renderItems = () => {
 		const pizItems = pizzas.map((item) => <Card key={item.id} {...item} />);
@@ -72,6 +75,7 @@ function Home({ searchValue, setSearchValue }) {
 					{/* <Skeleton /> */}
 					{renderItems()}
 				</div>
+				<Pagination setCurrentPage={setCurrentPage} />
 			</div>
 		</>
 	);

@@ -1,0 +1,64 @@
+@import '../../variables.styl';
+
+.pagination
+    list-style: none
+    padding 0
+    margin 0
+    display flex
+    align-items center
+    gap: 20px
+    margin-top 40px
+    user-select: none
+    &__arrow
+        &__link
+            font-weight 700
+            font-size 18px
+            width 36px
+            height 36px
+            display flex
+            justify-content center
+            align-items center
+            cursor: pointer
+            background gray2
+            border-radius 8px
+            border: 1px solid transparent
+            transition: border-color .123s ease-in
+            &Disabled
+                cursor: not-allowed
+            &:not(&Disabled):hover
+                border-color: orange
+
+    &__item
+        width 24px
+        height 24px
+        overflow: hidden
+        display flex
+        align-items center
+        justify-content center
+        box-sizing: content-box
+
+    &__link
+        border: 2px solid orange
+        border-radius: 8px
+        width 24px
+        height 24px
+        position absolute
+        display inline-block
+        color: orange
+        font-size: 18px
+        background white
+        cursor: pointer
+        display flex
+        align-items center
+        justify-content center
+        transition: .123s ease-in
+        &Active
+            font-weight 700
+            background orange
+            color: white
+            width 36px
+            height 36px
+        &:not(&Active):hover
+            width 26px
+            height 26px
+            
