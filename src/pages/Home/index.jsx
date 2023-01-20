@@ -9,25 +9,22 @@ import Selector from "../../components/Selector";
 import Pagination from "../../components/Pagination";
 import { searchContext } from "../../App";
 
+import { useDispatch, useSelector } from "react-redux";
+import { setCategoryId } from "../../redux/slices/filterSlice";
+
 function Home() {
+	const dispatch = useDispatch();
+
 	const { searchValue } = useContext(searchContext);
 
 	const [pizzas, setPizzas] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 
-	// Категория
-	const [categoryIndex, setCategoryIndex] = useState(0);
-	const onClickCategory = (index) => {
-		setCategoryIndex(index);
-	};
+	const { categoryId, sort } = useSelector((state) => state.filter);
 
-	// Сортировка
-	const [sortType, setSortType] = useState({
-		name: "Популярности",
-		property: "rating",
-	});
-	const onClickSort = (index) => {
-		setSortType(index);
+	// Категория
+	const onClickCategory = (id) => {
+		dispatch(setCategoryId(id));
 	};
 
 	const [currentPage, setCurrentPage] = useState(1);
@@ -35,13 +32,13 @@ function Home() {
 	useEffect(() => {
 		setIsLoading(true);
 
-		const category = categoryIndex > 0 ? `&category=${categoryIndex}` : "";
-		const sort = sortType.property.replace("-", "");
-		const order = sortType.property.includes("-") ? "desc" : "asc";
+		const category = categoryId > 0 ? `&category=${categoryId}` : "";
+		const newSort = sort.property.replace("-", "");
+		const order = sort.property.includes("-") ? "desc" : "asc";
 		const title = searchValue ? searchValue : "";
 
 		fetch(
-			`https://63bd5257d660062388a18682.mockapi.io/items?page=${currentPage}&limit=4${category}&title=${title}&sortBy=${sort}&order=${order}`
+			`https://63bd5257d660062388a18682.mockapi.io/items?page=${currentPage}&limit=4${category}&title=${title}&sortBy=${newSort}&order=${order}`
 		)
 			.then((res) => res.json())
 			.then((items) => setPizzas(items))
@@ -51,12 +48,12 @@ function Home() {
 				console.dir(error);
 				setIsLoading(false);
 			});
-	}, [categoryIndex, sortType, searchValue, currentPage]);
+	}, [categoryId, sort, searchValue, currentPage]);
 
 	const renderItems = () => {
 		const pizItems = pizzas.map((item) => <Card key={item.id} {...item} />);
-		const skelItems = [...Array(4)].map((_, index) => (
-			<Skeleton className={styles.skeleton} key={index} />
+		const skelItems = [...Array(4)].map((_, id) => (
+			<Skeleton className={styles.skeleton} key={id} />
 		));
 
 		if (isLoading) return skelItems;
@@ -68,9 +65,9 @@ function Home() {
 			<div className={styles.top}>
 				<Category
 					onClickCategory={onClickCategory}
-					categoryIndex={categoryIndex}
+					categoryId={categoryId}
 				/>
-				<Selector sort={sortType} onChangeSort={onClickSort} />
+				<Selector sort={sort} />
 			</div>
 			<div className={styles.content}>
 				<h2 className={styles.content__title}>Все пиццы</h2>

@@ -1,8 +1,8 @@
 import styles from "./index.module.styl";
 
-function Category({ categoryIndex, onClickCategory }) {
+function Category({ categoryId, onClickCategory }) {
 	const getClass = (userIndex) =>
-		categoryIndex === userIndex ? styles.active : "";
+		categoryId === userIndex ? styles.active : "";
 
 	const categories = [
 		"Все",

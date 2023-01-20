@@ -1,23 +1,29 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./index.module.styl";
 
-function Selector({ sort, onChangeSort }) {
-	// Открытие и закрытие тулбара
+import { setSort } from "../../redux/slices/filterSlice";
+
+const selectorNames = [
+	{ name: "Популярности", property: "-rating" },
+	{ name: "Популярности", property: "rating" },
+	{ name: "Цене", property: "-price" },
+	{ name: "Цене", property: "price" },
+	{ name: "Алфавиту", property: "title" },
+];
+
+function Selector({ sort }) {
+	//_ Открытие и закрытие тулбара
 	const [isVisible, setIsVisible] = useState(false);
 	const handleSelectOpen = () => setIsVisible(!isVisible);
 
-	const onClickSort = (id) => {
-		handleSelectOpen();
-		onChangeSort(id);
-	};
+	const dispatch = useDispatch();
 
-	const selectorNames = [
-		{ name: "Популярности", property: "-rating" },
-		{ name: "Популярности", property: "rating" },
-		{ name: "Цене", property: "-price" },
-		{ name: "Цене", property: "price" },
-		{ name: "Алфавиту", property: "title" },
-	];
+	//_ Клик на элемент сортировки [популярности, цене, алфавиту]
+	const onClickSort = (item) => {
+		handleSelectOpen();
+		dispatch(setSort(item));
+	};
 
 	return (
 		<div className={styles.select}>

@@ -17,7 +17,6 @@ function App() {
 			<div className="Wrapper__inner">
 				<searchContext.Provider value={{ searchValue, setSearchValue }}>
 					<Header />
-
 					<main className="main">
 						<ScrollToTop>
 							<Routes>
