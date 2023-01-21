@@ -1,10 +1,10 @@
 import ReactPaginate from "react-paginate";
 import styles from "./.module.styl";
 
-function Pagination({ setCurrentPage }) {
+function Pagination({ setPage }) {
 	return (
 		<ReactPaginate
-			onPageChange={({ selected }) => setCurrentPage(++selected)}
+			onPageChange={({ selected }) => setPage(++selected)}
 			breakLabel="..."
 			previousLabel="<"
 			nextLabel=">"

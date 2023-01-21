@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import styles from "./index.module.styl";
 
@@ -7,28 +7,30 @@ import Skeleton from "../../components/Card/Skeleton";
 import Category from "../../components/Category";
 import Selector from "../../components/Selector";
 import Pagination from "../../components/Pagination";
-import { searchContext } from "../../App";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setCategoryId } from "../../redux/slices/filterSlice";
+import { setCategoryId, setCurrentPage } from "../../redux/slices/filterSlice";
 import axios from "axios";
 
 function Home() {
 	const dispatch = useDispatch();
 
-	const { searchValue } = useContext(searchContext);
-
 	const [pizzas, setPizzas] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 
-	const { categoryId, sort } = useSelector((state) => state.filter);
+	const { categoryId, sort, search, currentPage } = useSelector(
+		(state) => state.filter
+	);
 
-	// Категория
+	//? Категория
 	const onClickCategory = (id) => {
 		dispatch(setCategoryId(id));
 	};
 
-	const [currentPage, setCurrentPage] = useState(1);
+	//? Страница пагинации
+	const setPage = (number) => {
+		dispatch(setCurrentPage(number));
+	};
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -36,7 +38,7 @@ function Home() {
 		const category = categoryId > 0 ? `&category=${categoryId}` : "";
 		const newSort = sort.property.replace("-", "");
 		const order = sort.property.includes("-") ? "desc" : "asc";
-		const title = searchValue ? searchValue : "";
+		const title = search ? search : "";
 
 		axios
 			.get(
@@ -51,7 +53,7 @@ function Home() {
 				console.dir(error);
 				setIsLoading(false);
 			});
-	}, [categoryId, sort, searchValue, currentPage]);
+	}, [categoryId, sort, search, currentPage]);
 
 	const renderItems = () => {
 		const pizItems = pizzas.map((item) => <Card key={item.id} {...item} />);
@@ -74,11 +76,8 @@ function Home() {
 			</div>
 			<div className={styles.content}>
 				<h2 className={styles.content__title}>Все пиццы</h2>
-				<div className={styles.pizzas}>
-					{/* <Skeleton /> */}
-					{renderItems()}
-				</div>
-				<Pagination setCurrentPage={setCurrentPage} />
+				<div className={styles.pizzas}>{renderItems()}</div>
+				<Pagination setPage={setPage} />
 			</div>
 		</>
 	);
