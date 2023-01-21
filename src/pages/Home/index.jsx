@@ -11,6 +11,7 @@ import { searchContext } from "../../App";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setCategoryId } from "../../redux/slices/filterSlice";
+import axios from "axios";
 
 function Home() {
 	const dispatch = useDispatch();
@@ -37,12 +38,14 @@ function Home() {
 		const order = sort.property.includes("-") ? "desc" : "asc";
 		const title = searchValue ? searchValue : "";
 
-		fetch(
-			`https://63bd5257d660062388a18682.mockapi.io/items?page=${currentPage}&limit=4${category}&title=${title}&sortBy=${newSort}&order=${order}`
-		)
-			.then((res) => res.json())
-			.then((items) => setPizzas(items))
-			.then(() => setIsLoading(false))
+		axios
+			.get(
+				`https://63bd5257d660062388a18682.mockapi.io/items?page=${currentPage}&limit=4${category}&title=${title}&sortBy=${newSort}&order=${order}`
+			)
+			.then((response) => {
+				setPizzas(response.data);
+				setIsLoading(false);
+			})
 			.catch((error) => {
 				alert("Ошибка \n " + error);
 				console.dir(error);
