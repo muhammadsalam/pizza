@@ -17,10 +17,13 @@ import {
 import axios from "axios";
 import QueryString from "qs";
 import { useNavigate } from "react-router";
+import { useRef } from "react";
 
 function Home() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const isPizzasRendered = useRef(false);
+	const isMounted = useRef(false);
 
 	const [pizzas, setPizzas] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -39,26 +42,7 @@ function Home() {
 		dispatch(setCurrentPage(number));
 	};
 
-	useEffect(() => {
-		if (window.location.search) {
-			const queryParams = QueryString.parse(
-				window.location.search.substring(1)
-			);
-
-			const sort = selectorNames.find(
-				(obj) => obj.property === queryParams.sortProperty
-			);
-
-			dispatch(
-				setFilters({
-					...queryParams,
-					sort,
-				})
-			);
-		}
-	}, []);
-
-	useEffect(() => {
+	const fetchPizzas = () => {
 		setIsLoading(true);
 
 		const category = categoryId > 0 ? `&category=${categoryId}` : "";
@@ -79,20 +63,50 @@ function Home() {
 				console.dir(error);
 				setIsLoading(false);
 			});
+	};
+
+	useEffect(() => {
+		if (window.location.search) {
+			const queryParams = QueryString.parse(
+				window.location.search.substring(1)
+			);
+
+			const sort = selectorNames.find(
+				(obj) => obj.property === queryParams.sortProperty
+			);
+
+			dispatch(
+				setFilters({
+					...queryParams,
+					sort,
+				})
+			);
+			isPizzasRendered.current = true;
+		}
+	}, []);
+
+	useEffect(() => {
+		if (!isPizzasRendered.current) {
+			fetchPizzas();
+		}
+
+		isPizzasRendered.current = false;
 	}, [categoryId, sort, search, currentPage]);
 
 	useEffect(() => {
-		const queryStringParams = QueryString.stringify(
-			{
-				sortProperty: sort.property,
-				categoryId,
-				currentPage,
-			},
-			{ addQueryPrefix: true }
-		);
+		if (isMounted.current) {
+			const queryStringParams = QueryString.stringify(
+				{
+					sortProperty: sort.property,
+					categoryId,
+					currentPage,
+				},
+				{ addQueryPrefix: true }
+			);
 
-		// console.log(queryStringParams);
-		navigate(queryStringParams);
+			navigate(queryStringParams);
+		}
+		isMounted.current = true;
 	}, [categoryId, sort, currentPage]);
 
 	const renderItems = () => {
