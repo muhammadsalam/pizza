@@ -5,14 +5,21 @@ import styles from "./index.module.styl";
 import Card from "../../components/Card";
 import Skeleton from "../../components/Card/Skeleton";
 import Category from "../../components/Category";
-import Selector from "../../components/Selector";
+import Selector, { selectorNames } from "../../components/Selector";
 import Pagination from "../../components/Pagination";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setCategoryId, setCurrentPage } from "../../redux/slices/filterSlice";
+import {
+	setCategoryId,
+	setCurrentPage,
+	setFilters,
+} from "../../redux/slices/filterSlice";
 import axios from "axios";
+import QueryString from "qs";
+import { useNavigate } from "react-router";
 
 function Home() {
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const [pizzas, setPizzas] = useState([]);
@@ -31,6 +38,25 @@ function Home() {
 	const setPage = (number) => {
 		dispatch(setCurrentPage(number));
 	};
+
+	useEffect(() => {
+		if (window.location.search) {
+			const queryParams = QueryString.parse(
+				window.location.search.substring(1)
+			);
+
+			const sort = selectorNames.find(
+				(obj) => obj.property === queryParams.sortProperty
+			);
+
+			dispatch(
+				setFilters({
+					...queryParams,
+					sort,
+				})
+			);
+		}
+	}, []);
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -55,6 +81,20 @@ function Home() {
 			});
 	}, [categoryId, sort, search, currentPage]);
 
+	useEffect(() => {
+		const queryStringParams = QueryString.stringify(
+			{
+				sortProperty: sort.property,
+				categoryId,
+				currentPage,
+			},
+			{ addQueryPrefix: true }
+		);
+
+		// console.log(queryStringParams);
+		navigate(queryStringParams);
+	}, [categoryId, sort, currentPage]);
+
 	const renderItems = () => {
 		const pizItems = pizzas.map((item) => <Card key={item.id} {...item} />);
 		const skelItems = [...Array(4)].map((_, id) => (
@@ -77,7 +117,7 @@ function Home() {
 			<div className={styles.content}>
 				<h2 className={styles.content__title}>Все пиццы</h2>
 				<div className={styles.pizzas}>{renderItems()}</div>
-				<Pagination setPage={setPage} />
+				<Pagination currentPage={currentPage} setPage={setPage} />
 			</div>
 		</>
 	);

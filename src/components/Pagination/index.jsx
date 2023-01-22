@@ -1,7 +1,7 @@
 import ReactPaginate from "react-paginate";
 import styles from "./.module.styl";
 
-function Pagination({ setPage }) {
+function Pagination({ currentPage, setPage }) {
 	return (
 		<ReactPaginate
 			onPageChange={({ selected }) => setPage(++selected)}
@@ -11,6 +11,7 @@ function Pagination({ setPage }) {
 			pageRangeDisplayed={4}
 			pageCount={4}
 			renderOnZeroPageCount={null}
+			forcePage={currentPage - 1}
 			className={styles.pagination}
 			previousClassName={styles.pagination__arrow}
 			previousLinkClassName={styles.pagination__arrow__link}

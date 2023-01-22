@@ -4,7 +4,7 @@ import styles from "./index.module.styl";
 
 import { setSort } from "../../redux/slices/filterSlice";
 
-const selectorNames = [
+export const selectorNames = [
 	{ name: "Популярности", property: "-rating" },
 	{ name: "Популярности", property: "rating" },
 	{ name: "Цене", property: "-price" },
