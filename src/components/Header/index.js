@@ -1,8 +1,11 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Search from "../Search";
 import styles from "./Header.module.styl";
 
 function Header() {
+	const { items, totalPrice } = useSelector((state) => state.cart);
+
 	return (
 		<>
 			<header className={styles.header}>
@@ -19,7 +22,7 @@ function Header() {
 				</Link>
 				<Search />
 				<Link to="/cart" className={styles.button}>
-					<span className={styles.button__span}>520 ₽</span>
+					<span className={styles.button__span}>{totalPrice} ₽</span>
 					<hr className={styles.button__line} />
 					<div>
 						<img
@@ -28,7 +31,9 @@ function Header() {
 							role="icon"
 							alt=""
 						/>
-						<span className={styles.button__span}>3</span>
+						<span className={styles.button__span}>
+							{items.length}
+						</span>
 					</div>
 				</Link>
 			</header>
