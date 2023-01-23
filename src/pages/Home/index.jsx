@@ -86,14 +86,6 @@ function Home() {
 	}, []);
 
 	useEffect(() => {
-		if (!isPizzasRendered.current) {
-			fetchPizzas();
-		}
-
-		isPizzasRendered.current = false;
-	}, [categoryId, sort, search, currentPage]);
-
-	useEffect(() => {
 		if (isMounted.current) {
 			const queryStringParams = QueryString.stringify(
 				{
@@ -108,6 +100,14 @@ function Home() {
 		}
 		isMounted.current = true;
 	}, [categoryId, sort, currentPage]);
+
+	useEffect(() => {
+		if (!isPizzasRendered.current) {
+			fetchPizzas();
+		}
+
+		isPizzasRendered.current = false;
+	}, [categoryId, sort, search, currentPage]);
 
 	const renderItems = () => {
 		const pizItems = pizzas.map((item) => <Card key={item.id} {...item} />);

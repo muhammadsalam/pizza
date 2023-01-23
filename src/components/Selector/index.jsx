@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./index.module.styl";
 
 import { setSort } from "../../redux/slices/filterSlice";
+import { useRef } from "react";
 
 export const selectorNames = [
 	{ name: "Популярности", property: "-rating" },
@@ -15,7 +16,9 @@ export const selectorNames = [
 function Selector({ sort }) {
 	//_ Открытие и закрытие тулбара
 	const [isVisible, setIsVisible] = useState(false);
-	const handleSelectOpen = () => setIsVisible(!isVisible);
+	const handleSelectOpen = () => {
+		setIsVisible(!isVisible);
+	};
 
 	const dispatch = useDispatch();
 
@@ -25,8 +28,23 @@ function Selector({ sort }) {
 		dispatch(setSort(item));
 	};
 
+	//_ Скрытие попапа при клике вне компонента
+	const selectorRef = useRef();
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			//? composedPath() показывает весь путь с window до самого объекта
+			if (!event.composedPath().includes(selectorRef.current)) {
+				setIsVisible(false);
+			}
+		};
+
+		document.addEventListener("click", handleClickOutside);
+		return () => document.removeEventListener("click", handleClickOutside);
+		//? return () => {} выполняет функцию при удалении компонента
+	}, []);
+
 	return (
-		<div className={styles.select}>
+		<div ref={selectorRef} className={styles.select}>
 			<div className={styles.select__button}>
 				<img
 					style={isVisible ? { transform: "rotate(180deg" } : null}
