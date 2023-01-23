@@ -110,13 +110,15 @@ function Home() {
 	}, [categoryId, sort, search, currentPage]);
 
 	const renderItems = () => {
-		const pizItems = pizzas.map((item) => <Card key={item.id} {...item} />);
-		const skelItems = [...Array(4)].map((_, id) => (
+		const pizzasItems = pizzas.map((item) => (
+			<Card key={item.id} {...item} />
+		));
+		const skelletonsItems = [...Array(4)].map((_, id) => (
 			<Skeleton className={styles.skeleton} key={id} />
 		));
 
-		if (isLoading) return skelItems;
-		return pizItems;
+		if (isLoading) return skelletonsItems;
+		return pizzasItems;
 	};
 
 	return (

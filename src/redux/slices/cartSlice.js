@@ -9,13 +9,31 @@ const cartSlice = createSlice({
 	name: "cart",
 	initialState,
 	reducers: {
+		// addItem(state, action) {
+		// 	state.items.push(action.payload);
+		// 	state.totalPrice += action.payload.price;
+		// },
 		addItem(state, action) {
-			state.items.push(action.payload);
+			const findedItem = state.items.find(
+				(obj) => obj.token === action.payload.token
+			);
+
+			if (findedItem) {
+				findedItem.count++;
+			} else {
+				state.items.push({
+					...action.payload,
+					count: 1,
+				});
+			}
+
+			state.totalPrice += action.payload.price;
 		},
 		removeItem(state, action) {
 			state.items = state.items.filter(
-				(item) => item.token !== action.payload
+				(item) => item.token !== action.payload.token
 			);
+			state.totalPrice -= action.payload.price;
 		},
 		clearItems(state) {
 			state.items = [];

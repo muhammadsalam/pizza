@@ -1,17 +1,38 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "../../redux/slices/cartSlice";
 import styles from "./index.module.styl";
 
-function Card({ title, pizzaUrl, price, sizes, types }) {
+function Card({ id, title, pizzaUrl, price, sizes, types, token }) {
+	const dispatch = useDispatch();
+
 	const typeNames = ["тонкое", "традиционное"];
 
-	const [amount, setAmount] = useState(0);
-	const handleAmountPlus = () => setAmount(amount + 1);
+	const cartItem = useSelector((state) =>
+		state.cart.items.find((obj) => obj.token === token)
+	);
+
+	const amount = cartItem ? cartItem.count : 0;
+
+	const handleAddItem = () => {
+		const item = {
+			id,
+			title,
+			pizzaUrl,
+			price,
+			size: activeSize,
+			type: activeType,
+			token,
+		};
+
+		dispatch(addItem(item));
+	};
 
 	const [activeType, setActiveType] = useState(0);
-	const [activeSize, setActiveSize] = useState(0);
-
-	const handleActiveSize = (size) => setActiveSize(size);
 	const handleActiveType = (type) => setActiveType(type);
+
+	const [activeSize, setActiveSize] = useState(0);
+	const handleActiveSize = (size) => setActiveSize(size);
 
 	return (
 		<div className={styles.card}>
@@ -51,7 +72,7 @@ function Card({ title, pizzaUrl, price, sizes, types }) {
 					className={`${styles.card__button} ${
 						amount ? styles["card__button-secondary"] : ""
 					}`}
-					onClick={handleAmountPlus}
+					onClick={handleAddItem}
 				>
 					<svg
 						width="12"
@@ -66,7 +87,7 @@ function Card({ title, pizzaUrl, price, sizes, types }) {
 						/>
 					</svg>
 					Добавить
-					{amount ? <span>{amount}</span> : null}
+					{!!amount && <span>{amount}</span>}
 				</button>
 			</div>
 		</div>
