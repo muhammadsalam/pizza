@@ -1,48 +1,66 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import CartItem from "../../components/CartItem";
 import InfoBlock from "../../components/InfoBlock";
+import { clearItems } from "../../redux/slices/cartSlice";
 
 import styles from "./index.module.styl";
 
 function Cart() {
+	const dispatch = useDispatch();
+	const { items, totalPrice } = useSelector((state) => state.cart);
+	const itemsLength = items.reduce((sum, item) => sum + item.count, 0);
+
+	const RenderList = () =>
+		items.map((item) => <CartItem key={item.token} {...item} />);
+
+	const handleClearItems = () => {
+		dispatch(clearItems());
+	};
+
+	if (!items.length) {
+		return (
+			<InfoBlock
+				title="Корзина пустая"
+				description="
+	Вероятней всего, вы не заказывали ещё пиццу. Для того, чтобы
+	заказать пиццу, перейди на главную страницу."
+			>
+				<img
+					src="img/empty-cart.png"
+					alt="в корзине ничего не найдено"
+				/>
+			</InfoBlock>
+		);
+	}
+
 	return (
-		// <InfoBlock
-		// 	title="Корзина пустая"
-		// 	description="
-		// 			Вероятней всего, вы не заказывали ещё пиццу. Для того, чтобы
-		// 			заказать пиццу, перейди на главную страницу."
-		// >
-		// 	<img src="img/empty-cart.png" alt="в корзине ничего не найдено" />
-		// </InfoBlock>
 		<div className={styles.cart}>
 			<div className={styles.top}>
 				<h2 className={styles.top__title}>
 					<img src="img/icons/cart-icon.svg" alt=">" role="icon" />
 					Корзина
 				</h2>
-				<button className={styles.top__button}>
+				<button
+					onClick={handleClearItems}
+					className={styles.top__button}
+				>
 					<img src="img/icons/trash-icon.svg" alt="][" role="icon" />
 					Очистить корзину
 				</button>
 			</div>
 			<ul className={styles.cart__list}>
-				<CartItem />
-				<CartItem />
-				<CartItem />
-				<CartItem />
-				<CartItem />
-				<CartItem />
-				<CartItem />
+				<RenderList />
 			</ul>
 			<div className={styles.bottom}>
 				<div className={styles.bottom__details}>
 					<span>
-						Всего пицц: <b>3 шт.</b>
+						Всего пицц: <b>{itemsLength} шт.</b>
 					</span>
 					<span>
-						Сумма заказа:{" "}
-						<b className={styles.bottom__price}>900 ₽</b>
+						Сумма заказа:
+						<b className={styles.bottom__price}>{totalPrice} ₽</b>
 					</span>
 				</div>
 				<div className={styles.bottom__buttons}>

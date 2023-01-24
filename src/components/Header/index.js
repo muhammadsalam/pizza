@@ -5,6 +5,7 @@ import styles from "./Header.module.styl";
 
 function Header() {
 	const { items, totalPrice } = useSelector((state) => state.cart);
+	const itemsLength = items.reduce((sum, item) => sum + item.count, 0);
 
 	return (
 		<>
@@ -32,7 +33,7 @@ function Header() {
 							alt=""
 						/>
 						<span className={styles.button__span}>
-							{items.length}
+							{itemsLength}
 						</span>
 					</div>
 				</Link>

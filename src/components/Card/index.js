@@ -20,8 +20,8 @@ function Card({ id, title, pizzaUrl, price, sizes, types, token }) {
 			title,
 			pizzaUrl,
 			price,
-			size: activeSize,
-			type: activeType,
+			size: sizes[activeSize],
+			type: typeNames[activeType],
 			token,
 		};
 
