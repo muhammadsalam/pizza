@@ -42,7 +42,7 @@ function Home() {
 		dispatch(setCurrentPage(number));
 	};
 
-	const fetchPizzas = () => {
+	const fetchPizzas = async () => {
 		setIsLoading(true);
 
 		const category = categoryId > 0 ? `&category=${categoryId}` : "";
@@ -50,19 +50,17 @@ function Home() {
 		const order = sort.property.includes("-") ? "desc" : "asc";
 		const title = search ? search : "";
 
-		axios
-			.get(
+		try {
+			const response = await axios.get(
 				`https://63bd5257d660062388a18682.mockapi.io/items?page=${currentPage}&limit=4${category}&title=${title}&sortBy=${newSort}&order=${order}`
-			)
-			.then((response) => {
-				setPizzas(response.data);
-				setIsLoading(false);
-			})
-			.catch((error) => {
-				alert("Ошибка \n " + error);
-				console.dir(error);
-				setIsLoading(false);
-			});
+			);
+			setPizzas(response.data);
+		} catch (error) {
+			alert("Ошибка \n " + error);
+			console.dir(error);
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	useEffect(() => {
