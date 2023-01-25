@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./index.module.styl";
 
-const InfoBlock = ({ title, description, children }) => {
+const InfoBlock = ({ title, description, children, button = true }) => {
 	const smiles = ["😔", "🙁", "😢", "💀", "🧐", "🥺", "🤧", "🤕"];
 
 	const randomSmiles = Math.floor(Math.random() * smiles.length);
@@ -15,9 +15,11 @@ const InfoBlock = ({ title, description, children }) => {
 					{title}
 				</h1>
 				<p className={styles.description}>{description}</p>
-				<Link to="/" className={styles.button}>
-					Вернуться назад
-				</Link>
+				{button && (
+					<Link to="/" className={styles.button}>
+						Вернуться назад
+					</Link>
+				)}
 			</div>
 		</div>
 	);

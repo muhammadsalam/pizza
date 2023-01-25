@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import styles from "./index.module.styl";
 
@@ -14,10 +14,11 @@ import {
 	setCurrentPage,
 	setFilters,
 } from "../../redux/slices/filterSlice";
-import axios from "axios";
 import QueryString from "qs";
 import { useNavigate } from "react-router";
 import { useRef } from "react";
+import { fetchPizzas } from "../../redux/slices/pizzasSlice";
+import InfoBlock from "../../components/InfoBlock";
 
 function Home() {
 	const navigate = useNavigate();
@@ -25,8 +26,7 @@ function Home() {
 	const isPizzasRendered = useRef(false);
 	const isMounted = useRef(false);
 
-	const [pizzas, setPizzas] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
+	const { pizzas, status } = useSelector((state) => state.pizzas);
 
 	const { categoryId, sort, search, currentPage } = useSelector(
 		(state) => state.filter
@@ -42,25 +42,21 @@ function Home() {
 		dispatch(setCurrentPage(number));
 	};
 
-	const fetchPizzas = async () => {
-		setIsLoading(true);
-
+	const getPizzas = async () => {
 		const category = categoryId > 0 ? `&category=${categoryId}` : "";
 		const newSort = sort.property.replace("-", "");
 		const order = sort.property.includes("-") ? "desc" : "asc";
 		const title = search ? search : "";
 
-		try {
-			const response = await axios.get(
-				`https://63bd5257d660062388a18682.mockapi.io/items?page=${currentPage}&limit=4${category}&title=${title}&sortBy=${newSort}&order=${order}`
-			);
-			setPizzas(response.data);
-		} catch (error) {
-			alert("Ошибка \n " + error);
-			console.dir(error);
-		} finally {
-			setIsLoading(false);
-		}
+		dispatch(
+			fetchPizzas({
+				category,
+				newSort,
+				order,
+				title,
+				currentPage,
+			})
+		);
 	};
 
 	useEffect(() => {
@@ -101,7 +97,7 @@ function Home() {
 
 	useEffect(() => {
 		if (!isPizzasRendered.current) {
-			fetchPizzas();
+			getPizzas();
 		}
 
 		isPizzasRendered.current = false;
@@ -115,7 +111,7 @@ function Home() {
 			<Skeleton className={styles.skeleton} key={id} />
 		));
 
-		if (isLoading) return skelletonsItems;
+		if (status === "loading") return skelletonsItems;
 		return pizzasItems;
 	};
 
@@ -128,11 +124,18 @@ function Home() {
 				/>
 				<Selector sort={sort} />
 			</div>
-			<div className={styles.content}>
-				<h2 className={styles.content__title}>Все пиццы</h2>
-				<div className={styles.pizzas}>{renderItems()}</div>
-				<Pagination currentPage={currentPage} setPage={setPage} />
-			</div>
+			{status !== "error" ? (
+				<div className={styles.content}>
+					<h2 className={styles.content__title}>Все пиццы</h2>
+					<div className={styles.pizzas}>{renderItems()}</div>
+					<Pagination currentPage={currentPage} setPage={setPage} />
+				</div>
+			) : (
+				<InfoBlock
+					title="Ошибка, попробуйте чуть позже."
+					button={false}
+				/>
+			)}
 		</>
 	);
 }
