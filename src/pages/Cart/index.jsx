@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 
 import CartItem from "../../components/CartItem";
 import InfoBlock from "../../components/InfoBlock";
-import { clearItems } from "../../redux/slices/cartSlice";
+import { clearItems, getCart } from "../../redux/slices/cartSlice";
 
 import styles from "./index.module.styl";
 
 function Cart() {
 	const dispatch = useDispatch();
-	const { items, totalPrice } = useSelector((state) => state.cart);
+	const { items, totalPrice } = useSelector(getCart);
 	const itemsLength = items.reduce((sum, item) => sum + item.count, 0);
 
 	const RenderList = () =>

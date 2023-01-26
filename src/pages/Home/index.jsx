@@ -10,6 +10,7 @@ import Pagination from "../../components/Pagination";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
+	getFilters,
 	setCategoryId,
 	setCurrentPage,
 	setFilters,
@@ -17,7 +18,7 @@ import {
 import QueryString from "qs";
 import { useNavigate } from "react-router";
 import { useRef } from "react";
-import { fetchPizzas } from "../../redux/slices/pizzasSlice";
+import { fetchPizzas, getPizzasData } from "../../redux/slices/pizzasSlice";
 import InfoBlock from "../../components/InfoBlock";
 
 function Home() {
@@ -26,11 +27,9 @@ function Home() {
 	const isPizzasRendered = useRef(false);
 	const isMounted = useRef(false);
 
-	const { pizzas, status } = useSelector((state) => state.pizzas);
+	const { pizzas, status } = useSelector(getPizzasData);
 
-	const { categoryId, sort, search, currentPage } = useSelector(
-		(state) => state.filter
-	);
+	const { categoryId, sort, search, currentPage } = useSelector(getFilters);
 
 	//? Категория
 	const onClickCategory = (id) => {

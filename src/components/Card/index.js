@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addItem } from "../../redux/slices/cartSlice";
+import { addItem, getCartItemByToken } from "../../redux/slices/cartSlice";
 import styles from "./index.module.styl";
 
 function Card({ id, title, pizzaUrl, price, sizes, types, token }) {
@@ -8,9 +8,7 @@ function Card({ id, title, pizzaUrl, price, sizes, types, token }) {
 
 	const typeNames = ["тонкое", "традиционное"];
 
-	const cartItem = useSelector((state) =>
-		state.cart.items.find((obj) => obj.token === token)
-	);
+	const cartItem = useSelector(getCartItemByToken(token));
 
 	const amount = cartItem ? cartItem.count : 0;
 
