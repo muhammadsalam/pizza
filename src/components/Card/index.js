@@ -1,18 +1,24 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { addItem, getCartItemByToken } from "../../redux/slices/cartSlice";
 import styles from "./index.module.styl";
 
+export const typeNames = ["тонкое", "традиционное"];
+
 function Card({ id, title, pizzaUrl, price, sizes, types, token }) {
 	const dispatch = useDispatch();
-
-	const typeNames = ["тонкое", "традиционное"];
 
 	const cartItem = useSelector(getCartItemByToken(token));
 
 	const amount = cartItem ? cartItem.count : 0;
 
-	const handleAddItem = () => {
+	const prevDef = (e) => {
+		e.preventDefault();
+	};
+
+	const handleAddItem = (e) => {
+		prevDef(e);
 		const item = {
 			id,
 			title,
@@ -33,10 +39,10 @@ function Card({ id, title, pizzaUrl, price, sizes, types, token }) {
 	const handleActiveSize = (size) => setActiveSize(size);
 
 	return (
-		<div className={styles.card}>
+		<Link to={"/pizzas/" + id} className={styles.card}>
 			<img src={pizzaUrl} alt={title} className={styles.card__img} />
 			<span className={styles.card__title}>{title}</span>
-			<div className={styles.card__choice}>
+			<div className={styles.card__choice} onClick={prevDef}>
 				<ul className={styles.card__selector}>
 					{types.map((item, index) => (
 						<li
@@ -65,7 +71,12 @@ function Card({ id, title, pizzaUrl, price, sizes, types, token }) {
 				</ul>
 			</div>
 			<div className={styles.card__bottom}>
-				<span className={styles.card__price}>{price}</span>
+				<span
+					onClick={(e) => e.preventDefault()}
+					className={styles.card__price}
+				>
+					от {price} ₽
+				</span>
 				<button
 					className={`${styles.card__button} ${
 						amount ? styles["card__button-secondary"] : ""
@@ -88,7 +99,7 @@ function Card({ id, title, pizzaUrl, price, sizes, types, token }) {
 					{!!amount && <span>{amount}</span>}
 				</button>
 			</div>
-		</div>
+		</Link>
 	);
 }
 

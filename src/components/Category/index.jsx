@@ -1,17 +1,17 @@
 import styles from "./index.module.styl";
 
+export const categories = [
+	"Все",
+	"Мясные",
+	"Вегетарианская",
+	"Гриль",
+	"Острые",
+	"Закрытые",
+];
+
 function Category({ categoryId, onClickCategory }) {
 	const getClass = (userIndex) =>
 		categoryId === userIndex ? styles.active : "";
-
-	const categories = [
-		"Все",
-		"Мясные",
-		"Вегетарианская",
-		"Гриль",
-		"Острые",
-		"Закрытые",
-	];
 
 	const listRender = () => {
 		return categories.map((name, index) => {

@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { getCart } from "../../redux/slices/cartSlice";
 import Search from "../Search";
 import styles from "./Header.module.styl";
@@ -7,6 +7,8 @@ import styles from "./Header.module.styl";
 function Header() {
 	const { items, totalPrice } = useSelector(getCart);
 	const itemsLength = items.reduce((sum, item) => sum + item.count, 0);
+
+	const { pathname } = useLocation();
 
 	return (
 		<>
@@ -23,21 +25,25 @@ function Header() {
 					</div>
 				</Link>
 				<Search />
-				<Link to="/cart" className={styles.button}>
-					<span className={styles.button__span}>{totalPrice} ₽</span>
-					<hr className={styles.button__line} />
-					<div>
-						<img
-							className={styles.button__img}
-							src="/img/icons/cart.svg"
-							role="icon"
-							alt=""
-						/>
+				{pathname !== "/cart" && (
+					<Link to="/cart" className={styles.button}>
 						<span className={styles.button__span}>
-							{itemsLength}
+							{totalPrice} ₽
 						</span>
-					</div>
-				</Link>
+						<hr className={styles.button__line} />
+						<div>
+							<img
+								className={styles.button__img}
+								src="/img/icons/cart.svg"
+								role="icon"
+								alt=""
+							/>
+							<span className={styles.button__span}>
+								{itemsLength}
+							</span>
+						</div>
+					</Link>
+				)}
 			</header>
 			<hr className={styles.line} />
 		</>

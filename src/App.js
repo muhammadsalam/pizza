@@ -5,6 +5,7 @@ import InfoBlock from "./components/InfoBlock";
 import ScrollToTop from "./components/ScrollToTop";
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
+import PizzaDetail from "./pages/PizzaDetail";
 
 function App() {
 	return (
@@ -24,6 +25,10 @@ function App() {
 										description=" К сожалению данная страница отсутствует в нашем интернет-магазине. Попросите с уважением"
 									/>
 								}
+							/>
+							<Route
+								path="/pizzas/:token"
+								element={<PizzaDetail />}
 							/>
 						</Routes>
 					</ScrollToTop>
