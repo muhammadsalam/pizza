@@ -1,6 +1,6 @@
 import styles from "./.module.styl";
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { categories } from "../../components/Category";
@@ -9,6 +9,7 @@ import { typeNames } from "../../components/Card";
 function PizzaDetail() {
 	const [pizza, setPizza] = useState();
 	const { token } = useParams();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		(async () => {
@@ -19,6 +20,7 @@ function PizzaDetail() {
 				setPizza(data);
 			} catch (error) {
 				alert("Ошибка при получении пиццы!");
+				navigate("/");
 			}
 		})();
 	}, []);
