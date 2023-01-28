@@ -1,6 +1,7 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { getCart } from "../../redux/slices/cartSlice";
+import { setFilters } from "../../redux/slices/filterSlice";
 import Search from "../Search";
 import styles from "./Header.module.styl";
 
@@ -10,10 +11,24 @@ function Header() {
 
 	const { pathname } = useLocation();
 
+	const dispatch = useDispatch();
+	const handleLogoClick = () => {
+		dispatch(
+			setFilters({
+				categoryId: 0,
+				sort: {
+					name: "Популярности",
+					property: "rating",
+				},
+				currentPage: 1,
+			})
+		);
+	};
+
 	return (
 		<>
 			<header className={styles.header}>
-				<Link to="/" className={styles.logo}>
+				<Link to="/" onClick={handleLogoClick} className={styles.logo}>
 					<img
 						className={styles.logo__img}
 						src="/img/logo.png"
