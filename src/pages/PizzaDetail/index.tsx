@@ -1,22 +1,35 @@
 import styles from "./.module.styl";
 
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import axios from "axios";
 import { categories } from "../../components/Category";
 import { typeNames } from "../../components/Card";
 
-function PizzaDetail() {
-	const [pizza, setPizza] = useState();
-	const { token } = useParams();
+type pizzaType = {
+	id: number;
+	token: number;
+	pizzaUrl: string;
+	title: string;
+	types: number[];
+	sizes: number[];
+	price: number;
+	category: number;
+	rating: number;
+};
+
+const PizzaDetail: FC = () => {
+	const [pizza, setPizza] = useState<pizzaType>();
+	const { id } = useParams();
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		(async () => {
 			try {
 				const { data } = await axios.get(
-					"https://63bd5257d660062388a18682.mockapi.io/items/" + token
+					"https://63bd5257d660062388a18682.mockapi.io/items/" + id
 				);
+
 				setPizza(data);
 			} catch (error) {
 				alert("Ошибка при получении пиццы!");
@@ -26,13 +39,14 @@ function PizzaDetail() {
 	}, []);
 
 	if (!pizza) {
-		return "Загрузка...";
+		return <>Загрузка...</>;
 	}
 
 	return (
 		<div className={styles.pizza}>
 			<img className={styles.pizza__img} src={"../" + pizza.pizzaUrl} />
 			<div className={styles.pizza__info}>
+				{pizza.id}
 				<div className={styles.pizza__top}>
 					<h2 className={styles.pizza__title}>{pizza.title}</h2>
 					<span className={styles.pizza__price}>
@@ -70,6 +84,6 @@ function PizzaDetail() {
 			</div>
 		</div>
 	);
-}
+};
 
 export default PizzaDetail;

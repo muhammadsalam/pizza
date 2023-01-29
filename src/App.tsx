@@ -13,7 +13,7 @@ function App() {
 				<Route path="" element={<Home />} />
 				<Route path="cart" element={<Cart />} />
 				<Route path="pizzas/:id" element={<PizzaDetail />} />
-				<Route
+				{/* <Route
 					path="*"
 					element={
 						<InfoBlock
@@ -21,7 +21,7 @@ function App() {
 							description=" К сожалению данная страница отсутствует в нашем интернет-магазине. Попросите с уважением"
 						/>
 					}
-				/>
+				/> */}
 			</Route>
 		</Routes>
 	);

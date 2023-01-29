@@ -19,7 +19,7 @@ import QueryString from "qs";
 import { useNavigate } from "react-router";
 import { useRef } from "react";
 import { fetchPizzas, getPizzasData } from "../../redux/slices/pizzasSlice";
-import InfoBlock from "../../components/InfoBlock";
+import InfoBlock from "../../components/InfoBlock/index.jsx";
 
 function Home() {
 	const navigate = useNavigate();
