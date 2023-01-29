@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
-import InfoBlock from "./components/InfoBlock";
+import InfoBlock from "./components/InfoBlock/index.jsx";
 import MainLayout from "./layouts/MainLayout";
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
@@ -12,7 +12,7 @@ function App() {
 			<Route path="/" element={<MainLayout />}>
 				<Route path="" element={<Home />} />
 				<Route path="cart" element={<Cart />} />
-				<Route path="pizzas/:token" element={<PizzaDetail />} />
+				<Route path="pizzas/:id" element={<PizzaDetail />} />
 				<Route
 					path="*"
 					element={
