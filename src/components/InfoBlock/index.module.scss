@@ -28,7 +28,7 @@
 .title {
 	font-size: 32px;
 	letter-spacing: 0.01em;
-	color: BLACK;
+	color: $BLACK;
 	margin: 0;
 
 	& span {
@@ -49,7 +49,7 @@
 	font-size: 16px;
 	letter-spacing: 0.015em;
 	padding: 14px 38px;
-	background-color: dark;
+	background-color: $dark;
 	color: #fff;
 	border-radius: 30px;
 	margin-top: 43px;
@@ -59,7 +59,7 @@
 	text-decoration: none;
 
 	&:hover {
-		background-color: #ffa500;
+		background-color: $orange;
 	}
 }
 

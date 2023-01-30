@@ -5,7 +5,7 @@ import CartItem from "../../components/CartItem";
 import InfoBlock from "../../components/InfoBlock/index.jsx";
 import { clearItems, getCart } from "../../redux/slices/cartSlice";
 
-import styles from "./index.module.styl";
+import styles from "./index.module.scss";
 
 function Cart() {
 	const dispatch = useDispatch();

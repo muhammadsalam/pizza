@@ -1,0 +1,39 @@
+@import "../../variables.scss";
+
+.category {
+	flex-grow: 1;
+	flex-shrink: 0;
+	display: flex;
+	overflow: auto;
+	align-items: center;
+	gap: 8px;
+	padding-bottom: 20px;
+	margin-bottom: -20px;
+	button {
+		padding: 14px 27px;
+		border: 0;
+		font-weight: 700;
+		font-size: 16px;
+		letter-spacing: 0.015em;
+		border-radius: 30px;
+		cursor: pointer;
+		transition: 0.2s background ease-in, 0.2s color ease-in,
+			0.2s opacity ease-in;
+		&:not(.active) {
+			&:hover {
+				opacity: 0.8;
+				background: $dark;
+				color: #fff;
+			}
+		}
+	}
+	button.active {
+		background-color: $dark;
+		color: #fff;
+	}
+}
+@media (max-width: 620px) {
+	.navigation {
+		width: 100%;
+	}
+}

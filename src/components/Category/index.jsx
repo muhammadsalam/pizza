@@ -1,4 +1,4 @@
-import styles from "./index.module.styl";
+import styles from "./index.module.scss";
 
 export const categories = [
 	"Все",

@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { addItem, minusItem, removeItem } from "../../redux/slices/cartSlice";
 
-import styles from "./index.module.styl";
+import styles from "./index.module.scss";
 
 const CartItem = ({ id, token, price, title, count, pizzaUrl, type, size }) => {
 	const dispatch = useDispatch();

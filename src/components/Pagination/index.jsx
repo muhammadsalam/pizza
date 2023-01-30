@@ -1,5 +1,5 @@
 import ReactPaginate from "react-paginate";
-import styles from "./.module.styl";
+import styles from "./.module.scss";
 
 function Pagination({ currentPage, setPage }) {
 	return (

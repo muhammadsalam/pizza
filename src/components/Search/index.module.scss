@@ -1,0 +1,79 @@
+.form {
+	flex: 1;
+	max-width: 550px;
+	&:hover {
+		.form__input {
+			box-shadow: 0 0 10px rgba(50,50,50,0.2);
+		}
+	}
+}
+.form__label {
+	display: flex;
+	align-items: center;
+	background: url("./search.svg") no-repeat 10px center;
+	width: 100%;
+	position: relative;
+}
+.form__input {
+	padding: 8px 50px 8px 40px;
+	border: 2px solid #323232;
+	border-radius: 10px;
+	background: 0;
+	margin: 0;
+	outline: none;
+	font-size: 16px;
+	flex: 1;
+	transition: box-shadow 0.2s linear;
+	&:not(:placeholder-shown) {
+		box-shadow: 0 0 10px rgba(50,50,50,0.05);
+		+ {
+			.form__button {
+				display: block;
+			}
+		}
+	}
+	&:focus {
+		box-shadow: 0 0 10px rgba(50,50,50,0.2);
+	}
+	&:hover {
+		box-shadow: 0 0 10px rgba(50,50,50,0.2);
+	}
+}
+.form__button {
+	line-height: 0;
+	padding: 0;
+	margin: 0;
+	background: 0;
+	border: 0;
+	cursor: pointer;
+	position: absolute;
+	right: 15px;
+	display: none;
+	opacity: 0.9;
+	transition: opacity 0.123s ease-in;
+	&:hover {
+		opacity: 1;
+	}
+	&:focus {
+		opacity: 1;
+	}
+	img {
+		width: 24px;
+		height: 24px;
+	}
+}
+@media (max-width: 768px) {
+	.form__input {
+		padding-right: 40px;
+	}
+	.form__button {
+		right: 10px;
+	}
+}
+@media (max-width: 620px) {
+	.form {
+		order: 1;
+		width: 100%;
+		max-width: 100%;
+	}
+}

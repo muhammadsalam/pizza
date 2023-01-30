@@ -1,0 +1,119 @@
+@import "../../variables.scss";
+.card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	transition: 0.2s transform ease-in;
+	will-change: transform;
+	color: inherit;
+	text-decoration: none;
+	&:hover {
+		transform: scale(1.02);
+	}
+}
+.card__img {
+	margin-bottom: 11px;
+	width: 100%;
+	max-width: 350px;
+}
+.card__title {
+	text-align: center;
+	font-size: 20px;
+	font-weight: 800;
+	letter-spacing: 0.01em;
+	color: $BLACK;
+}
+.card__choice {
+	padding: 7px 5px;
+	background: $bg-gray;
+	border-radius: 10px;
+	margin: 22px 0 17px;
+	width: 100%;
+}
+.card__selector {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	justify-content: space-between;
+	gap: 5px;
+	+ {
+		.card__selector {
+			margin-top: 7px;
+		}
+	}
+	li {
+		flex-grow: 1;
+		text-align: center;
+		font-weight: 700;
+		font-size: 14px;
+		letter-spacing: 0.015em;
+		padding: 10px 5px;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+	li.active {
+		background: #fff;
+		box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+		cursor: default;
+	}
+}
+.card__price {
+	color: $BLACK;
+	font-size: 22px;
+	font-weight: 700;
+	letter-spacing: 0.015em;
+	vertical-align: middle;
+}
+.card__bottom {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+.card__button {
+	border: 1px solid $orange;
+	padding: 9px 14px 9px 17px;
+	background: #fff;
+	border-radius: 30px;
+	display: inline-flex;
+	align-items: center;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: 700;
+	color: $orange;
+	transition: 0.123s color ease-in, 0.123s background ease-in;
+	&:hover {
+		color: #fff;
+		background: $orange;
+		svg {
+			fill: #fff;
+		}
+		span {
+			color: $orange;
+			background: #fff;
+		}
+	}
+	svg {
+		margin-right: 8px;
+		fill: $orange;
+		path {
+			transition: 0.123s fill ease-in;
+		}
+	}
+	span {
+		line-height: 0;
+		margin: -100% 0 -100% 6px;
+		width: 28px;
+		height: 28px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 50%;
+		color: #fff;
+		background: $orange;
+		font-size: 13px;
+		font-weight: 700;
+		transition: 0.123s background ease-in, 0.123s color ease-in;
+	}
+}
