@@ -1,4 +1,4 @@
-import styles from "./.module.styl";
+import styles from "./.module.scss";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { FC, useEffect, useState } from "react";
@@ -46,7 +46,6 @@ const PizzaDetail: FC = () => {
 		<div className={styles.pizza}>
 			<img className={styles.pizza__img} src={"../" + pizza.pizzaUrl} />
 			<div className={styles.pizza__info}>
-				{pizza.id}
 				<div className={styles.pizza__top}>
 					<h2 className={styles.pizza__title}>{pizza.title}</h2>
 					<span className={styles.pizza__price}>
