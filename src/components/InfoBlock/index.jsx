@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from "./index.module.styl";
+import styles from "./index.module.scss";
 
 const InfoBlock = ({ title, description, children, button = true }) => {
 	const smiles = ["😔", "🙁", "😢", "💀", "🧐", "🥺", "🤧", "🤕"];
