@@ -1,19 +1,36 @@
+import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import CartItem from "../../components/CartItem";
-import InfoBlock from "../../components/InfoBlock/index.jsx";
+import InfoBlock from "../../components/InfoBlock";
 import { clearItems, getCart } from "../../redux/slices/cartSlice";
 
 import styles from "./index.module.scss";
 
-function Cart() {
+export type CartItemProps = {
+	token: number;
+	price: number;
+	title: string;
+	count: number;
+	pizzaUrl: string;
+	type: string;
+	size: number;
+};
+
+const Cart: FC = () => {
 	const dispatch = useDispatch();
 	const { items, totalPrice } = useSelector(getCart);
-	const itemsLength = items.reduce((sum, item) => sum + item.count, 0);
+
+	const itemsLength = items.reduce(
+		(sum: number, item: { count: number }) => sum + item.count,
+		0
+	);
 
 	const RenderList = () =>
-		items.map((item) => <CartItem key={item.token} {...item} />);
+		items.map((item: CartItemProps) => (
+			<CartItem key={item.token} {...item} />
+		));
 
 	const handleClearItems = () => {
 		dispatch(clearItems());
@@ -89,6 +106,6 @@ function Cart() {
 			</div>
 		</div>
 	);
-}
+};
 
 export default Cart;

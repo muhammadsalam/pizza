@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addItem, getCartItemByToken } from "../../redux/slices/cartSlice";
@@ -6,18 +6,39 @@ import styles from "./index.module.scss";
 
 export const typeNames = ["тонкое", "традиционное"];
 
-function Card({ id, title, pizzaUrl, price, sizes, types, token }) {
+type CartProps = {
+	id: string;
+	title: string;
+	pizzaUrl: string;
+	price: number;
+	sizes: number[];
+	types: number[];
+	token: number;
+	rating: number;
+};
+
+const Card: FC<CartProps> = ({
+	id,
+	title,
+	pizzaUrl,
+	price,
+	sizes,
+	types,
+	token,
+	rating,
+	// TODO: сделать звёздочку на пицце в PizzaDetail где показывается рейтинг
+}) => {
 	const dispatch = useDispatch();
 
 	const cartItem = useSelector(getCartItemByToken(token));
 
 	const amount = cartItem ? cartItem.count : 0;
 
-	const prevDef = (e) => {
+	const prevDef = (e: any) => {
 		e.preventDefault();
 	};
 
-	const handleAddItem = (e) => {
+	const handleAddItem = (e: any) => {
 		prevDef(e);
 		const item = {
 			id,
@@ -33,10 +54,10 @@ function Card({ id, title, pizzaUrl, price, sizes, types, token }) {
 	};
 
 	const [activeType, setActiveType] = useState(0);
-	const handleActiveType = (type) => setActiveType(type);
+	const handleActiveType = (type: number) => setActiveType(type);
 
 	const [activeSize, setActiveSize] = useState(0);
-	const handleActiveSize = (size) => setActiveSize(size);
+	const handleActiveSize = (size: number) => setActiveSize(size);
 
 	return (
 		<Link to={"/pizzas/" + id} className={styles.card}>
@@ -101,6 +122,6 @@ function Card({ id, title, pizzaUrl, price, sizes, types, token }) {
 			</div>
 		</Link>
 	);
-}
+};
 
 export default Card;

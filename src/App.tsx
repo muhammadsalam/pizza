@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
-import InfoBlock from "./components/InfoBlock/index.jsx";
+import InfoBlock from "./components/InfoBlock";
 import MainLayout from "./layouts/MainLayout";
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
@@ -13,7 +13,7 @@ function App() {
 				<Route path="" element={<Home />} />
 				<Route path="cart" element={<Cart />} />
 				<Route path="pizzas/:id" element={<PizzaDetail />} />
-				{/* <Route
+				<Route
 					path="*"
 					element={
 						<InfoBlock
@@ -21,7 +21,7 @@ function App() {
 							description=" К сожалению данная страница отсутствует в нашем интернет-магазине. Попросите с уважением"
 						/>
 					}
-				/> */}
+				/>
 			</Route>
 		</Routes>
 	);

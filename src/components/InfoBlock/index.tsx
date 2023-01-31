@@ -1,7 +1,20 @@
+import { FC, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import styles from "./index.module.scss";
 
-const InfoBlock = ({ title, description, children, button = true }) => {
+type InfoBlockProps = {
+	title: string;
+	description?: string;
+	children?: ReactNode;
+	button?: boolean;
+};
+
+const InfoBlock: FC<InfoBlockProps> = ({
+	title,
+	description,
+	children,
+	button = true,
+}) => {
 	const smiles = ["😔", "🙁", "😢", "💀", "🧐", "🥺", "🤧", "🤕"];
 
 	const randomSmiles = Math.floor(Math.random() * smiles.length);

@@ -1,3 +1,4 @@
+import { FC } from "react";
 import styles from "./index.module.scss";
 
 export const categories = [
@@ -9,8 +10,13 @@ export const categories = [
 	"Закрытые",
 ];
 
-function Category({ categoryId, onClickCategory }) {
-	const getClass = (userIndex) =>
+type CategoryProps = {
+	categoryId: number;
+	onClickCategory: any;
+};
+
+const Category: FC<CategoryProps> = ({ categoryId, onClickCategory }) => {
+	const getClass = (userIndex: number) =>
 		categoryId === userIndex ? styles.active : "";
 
 	const listRender = () => {
@@ -28,6 +34,6 @@ function Category({ categoryId, onClickCategory }) {
 	};
 
 	return <nav className={styles.category}>{listRender()}</nav>;
-}
+};
 
 export default Category;

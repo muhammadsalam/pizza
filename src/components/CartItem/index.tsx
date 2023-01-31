@@ -1,9 +1,19 @@
+import { FC } from "react";
 import { useDispatch } from "react-redux";
+import { CartItemProps } from "../../pages/Cart";
 import { addItem, minusItem, removeItem } from "../../redux/slices/cartSlice";
 
 import styles from "./index.module.scss";
 
-const CartItem = ({ id, token, price, title, count, pizzaUrl, type, size }) => {
+const CartItem: FC<CartItemProps> = ({
+	token,
+	price,
+	title,
+	count,
+	pizzaUrl,
+	type,
+	size,
+}) => {
 	const dispatch = useDispatch();
 
 	const handleItemPlus = () => {

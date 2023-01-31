@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import styles from "./index.module.scss";
 
 import Card from "../../components/Card";
@@ -17,11 +15,11 @@ import {
 } from "../../redux/slices/filterSlice";
 import QueryString from "qs";
 import { useNavigate } from "react-router";
-import { useRef } from "react";
+import { FC, useRef, useEffect } from "react";
 import { fetchPizzas, getPizzasData } from "../../redux/slices/pizzasSlice";
-import InfoBlock from "../../components/InfoBlock/index.jsx";
+import InfoBlock from "../../components/InfoBlock";
 
-function Home() {
+const Home: FC = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const isPizzasRendered = useRef(false);
@@ -32,13 +30,13 @@ function Home() {
 	const { categoryId, sort, search, currentPage } = useSelector(getFilters);
 
 	//? Категория
-	const onClickCategory = (id) => {
+	const onClickCategory = (id: number) => {
 		dispatch(setCategoryId(id));
 	};
 
 	//? Страница пагинации
-	const setPage = (number) => {
-		dispatch(setCurrentPage(number));
+	const setPage = (pageIndex: number) => {
+		dispatch(setCurrentPage(pageIndex));
 	};
 
 	const getPizzas = async () => {
@@ -48,6 +46,8 @@ function Home() {
 		const title = search ? search : "";
 
 		dispatch(
+			// TODO: типизировать redux
+			// @ts-ignore
 			fetchPizzas({
 				category,
 				newSort,
@@ -103,7 +103,7 @@ function Home() {
 	}, [categoryId, sort, search, currentPage]);
 
 	const renderItems = () => {
-		const pizzasItems = pizzas.map((item) => (
+		const pizzasItems = pizzas.map((item: any) => (
 			<Card key={item.id} {...item} />
 		));
 		const skelletonsItems = [...Array(4)].map((_, id) => (
@@ -137,6 +137,6 @@ function Home() {
 			)}
 		</>
 	);
-}
+};
 
 export default Home;

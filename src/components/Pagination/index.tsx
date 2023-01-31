@@ -1,7 +1,13 @@
+import { FC } from "react";
 import ReactPaginate from "react-paginate";
 import styles from "./.module.scss";
 
-function Pagination({ currentPage, setPage }) {
+type PaginationProps = {
+	currentPage: number;
+	setPage: any;
+};
+
+const Pagination: FC<PaginationProps> = ({ currentPage, setPage }) => {
 	return (
 		<ReactPaginate
 			onPageChange={({ selected }) => setPage(++selected)}
@@ -10,7 +16,6 @@ function Pagination({ currentPage, setPage }) {
 			nextLabel=">"
 			pageRangeDisplayed={4}
 			pageCount={4}
-			renderOnZeroPageCount={null}
 			forcePage={currentPage - 1}
 			className={styles.pagination}
 			previousClassName={styles.pagination__arrow}
@@ -23,6 +28,6 @@ function Pagination({ currentPage, setPage }) {
 			activeLinkClassName={styles.pagination__linkActive}
 		/>
 	);
-}
+};
 
 export default Pagination;
