@@ -7,7 +7,10 @@ import styles from "./Header.module.scss";
 
 function Header() {
 	const { items, totalPrice } = useSelector(getCart);
-	const itemsLength = items.reduce((sum, item) => sum + item.count, 0);
+	const itemsLength = items.reduce(
+		(sum: number, item: { count: number }) => sum + item.count,
+		0
+	);
 
 	const { pathname } = useLocation();
 
