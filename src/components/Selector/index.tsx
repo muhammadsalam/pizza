@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styles from "./index.module.scss";
 
 import { setSort } from "../../redux/slices/filterSlice";
 import { useRef } from "react";
 
-export const selectorNames = [
+type selectorItem = {
+	name: string;
+	property: string;
+};
+
+export const selectorNames: selectorItem[] = [
 	{ name: "Популярности", property: "-rating" },
 	{ name: "Популярности", property: "rating" },
 	{ name: "Цене", property: "-price" },
@@ -13,7 +18,7 @@ export const selectorNames = [
 	{ name: "Алфавиту", property: "title" },
 ];
 
-function Selector({ sort }) {
+function Selector({ sort }: any) {
 	//_ Открытие и закрытие тулбара
 	const [isVisible, setIsVisible] = useState(false);
 	const handleSelectOpen = () => {
@@ -23,15 +28,15 @@ function Selector({ sort }) {
 	const dispatch = useDispatch();
 
 	//_ Клик на элемент сортировки [популярности, цене, алфавиту]
-	const onClickSort = (item) => {
+	const onClickSort = (item: selectorItem) => {
 		handleSelectOpen();
 		dispatch(setSort(item));
 	};
 
 	//_ Скрытие попапа при клике вне компонента
-	const selectorRef = useRef();
+	const selectorRef = useRef<HTMLDivElement>(null);
 	useEffect(() => {
-		const handleClickOutside = (event) => {
+		const handleClickOutside = (event: any) => {
 			//? composedPath() показывает весь путь с window до самого объекта
 			if (!event.composedPath().includes(selectorRef.current)) {
 				setIsVisible(false);
@@ -47,7 +52,9 @@ function Selector({ sort }) {
 		<div ref={selectorRef} className={styles.select}>
 			<div className={styles.select__button}>
 				<img
-					style={isVisible ? { transform: "rotate(180deg" } : null}
+					style={
+						isVisible ? { transform: "rotate(180deg" } : undefined
+					}
 					src="/img/icons/arrow.svg"
 					alt="^"
 				/>
@@ -75,7 +82,7 @@ function Selector({ sort }) {
 								style={
 									item.property.includes("-")
 										? { transform: "rotate(180deg" }
-										: null
+										: undefined
 								}
 								src="/img/icons/arrow.svg"
 								alt="^"
