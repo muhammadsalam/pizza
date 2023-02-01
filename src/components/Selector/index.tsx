@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { FC, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./index.module.scss";
 
 import { setSort } from "../../redux/slices/filterSlice";
-import { useRef } from "react";
+import useOnClickOutside from "../../hooks/useClickOutside";
 
 type selectorItem = {
 	name: string;
@@ -18,7 +18,7 @@ export const selectorNames: selectorItem[] = [
 	{ name: "Алфавиту", property: "title" },
 ];
 
-function Selector({ sort }: any) {
+const Selector: FC<{ sort: selectorItem }> = ({ sort }) => {
 	//_ Открытие и закрытие тулбара
 	const [isVisible, setIsVisible] = useState(false);
 	const handleSelectOpen = () => {
@@ -35,18 +35,7 @@ function Selector({ sort }: any) {
 
 	//_ Скрытие попапа при клике вне компонента
 	const selectorRef = useRef<HTMLDivElement>(null);
-	useEffect(() => {
-		const handleClickOutside = (event: any) => {
-			//? composedPath() показывает весь путь с window до самого объекта
-			if (!event.composedPath().includes(selectorRef.current)) {
-				setIsVisible(false);
-			}
-		};
-
-		document.addEventListener("click", handleClickOutside);
-		return () => document.removeEventListener("click", handleClickOutside);
-		//? return () => {} выполняет функцию при удалении компонента
-	}, []);
+	useOnClickOutside(selectorRef, setIsVisible);
 
 	return (
 		<div ref={selectorRef} className={styles.select}>
@@ -93,6 +82,6 @@ function Selector({ sort }: any) {
 			</div>
 		</div>
 	);
-}
+};
 
 export default Selector;

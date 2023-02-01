@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, MouseEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addItem, getCartItemByToken } from "../../redux/slices/cartSlice";
@@ -34,11 +34,11 @@ const Card: FC<CartProps> = ({
 
 	const amount = cartItem ? cartItem.count : 0;
 
-	const prevDef = (e: any) => {
+	const prevDef = (e: MouseEvent) => {
 		e.preventDefault();
 	};
 
-	const handleAddItem = (e: any) => {
+	const handleAddItem = (e: MouseEvent) => {
 		prevDef(e);
 		const item = {
 			id,

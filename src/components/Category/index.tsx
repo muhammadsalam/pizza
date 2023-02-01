@@ -12,7 +12,7 @@ export const categories = [
 
 type CategoryProps = {
 	categoryId: number;
-	onClickCategory: any;
+	onClickCategory: (index: number) => void;
 };
 
 const Category: FC<CategoryProps> = ({ categoryId, onClickCategory }) => {

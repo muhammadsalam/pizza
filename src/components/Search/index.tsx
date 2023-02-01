@@ -1,5 +1,12 @@
 import debounce from "lodash.debounce";
-import { FC, useCallback, useRef, useState } from "react";
+import {
+	ChangeEvent,
+	FC,
+	FormEvent,
+	useCallback,
+	useRef,
+	useState,
+} from "react";
 import { useDispatch } from "react-redux";
 import { setSearch } from "../../redux/slices/filterSlice";
 import styles from "./index.module.scss";
@@ -24,12 +31,12 @@ const Search: FC = () => {
 		[]
 	);
 
-	const onChangeInput = ({ target }: any) => {
+	const onChangeInput = ({ target }: ChangeEvent<HTMLInputElement>) => {
 		setValue(target.value);
 		updateSearch(target.value);
 	};
 
-	const onSubmitForm = (event: any) => {
+	const onSubmitForm = (event: FormEvent<HTMLFormElement>) => {
 		dispatch(setSearch(inputRef.current?.value));
 		event.preventDefault();
 		return false;
@@ -44,7 +51,6 @@ const Search: FC = () => {
 					type="text"
 					value={value}
 					placeholder="Поиск пиццы..."
-					onSubmit={(e) => console.log(e)}
 					onChange={onChangeInput}
 				/>
 				<button
