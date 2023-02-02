@@ -34,12 +34,7 @@ const Card: FC<CartProps> = ({
 
 	const amount = cartItem ? cartItem.count : 0;
 
-	const prevDef = (e: MouseEvent) => {
-		e.preventDefault();
-	};
-
-	const handleAddItem = (e: MouseEvent) => {
-		prevDef(e);
+	const handleAddItem = () => {
 		const item = {
 			id,
 			title,
@@ -60,10 +55,12 @@ const Card: FC<CartProps> = ({
 	const handleActiveSize = (size: number) => setActiveSize(size);
 
 	return (
-		<Link to={"/pizzas/" + id} className={styles.card}>
-			<img src={pizzaUrl} alt={title} className={styles.card__img} />
-			<span className={styles.card__title}>{title}</span>
-			<div className={styles.card__choice} onClick={prevDef}>
+		<div className={styles.card}>
+			<Link className={styles.card__link} to={"/pizzas/" + id}>
+				<img src={pizzaUrl} alt={title} className={styles.card__img} />
+				<span className={styles.card__title}>{title}</span>
+			</Link>
+			<div className={styles.card__choice}>
 				<ul className={styles.card__selector}>
 					{types.map((item, index) => (
 						<li
@@ -92,12 +89,7 @@ const Card: FC<CartProps> = ({
 				</ul>
 			</div>
 			<div className={styles.card__bottom}>
-				<span
-					onClick={(e) => e.preventDefault()}
-					className={styles.card__price}
-				>
-					от {price} ₽
-				</span>
+				<span className={styles.card__price}>от {price} ₽</span>
 				<button
 					className={`${styles.card__button} ${
 						amount ? styles["card__button-secondary"] : ""
@@ -120,7 +112,7 @@ const Card: FC<CartProps> = ({
 					{!!amount && <span>{amount}</span>}
 				</button>
 			</div>
-		</Link>
+		</div>
 	);
 };
 
