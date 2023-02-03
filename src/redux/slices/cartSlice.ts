@@ -44,21 +44,7 @@ const cartSlice = createSlice({
 			state.totalPrice += +action.payload.price;
 		},
 
-		plusItem(
-			state,
-			action: PayloadAction<{ token: number; price: number }>
-		) {
-			const findItem = state.items.find(
-				(obj) => obj.token === action.payload.token
-			);
-
-			findItem && findItem.count++;
-		},
-
-		minusItem(
-			state,
-			action: PayloadAction<{ token: number; price: number }>
-		) {
+		minusItem(state, action: PayloadAction<CartItem>) {
 			const findItem = state.items.find(
 				(obj) => obj.token === action.payload.token
 			);
@@ -104,7 +90,6 @@ export const getCartItemByToken = (token: number) => (state: RootState) => {
 	});
 };
 
-export const { addItem, removeItem, minusItem, clearItems, plusItem } =
-	cartSlice.actions;
+export const { addItem, removeItem, minusItem, clearItems } = cartSlice.actions;
 
 export default cartSlice.reducer;
