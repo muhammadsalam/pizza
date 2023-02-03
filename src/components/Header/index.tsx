@@ -44,25 +44,27 @@ function Header() {
 						<p>самая вкусная пицца во вселенной</p>
 					</div>
 				</Link>
-				<Search />
 				{pathname !== "/cart" && (
-					<Link to="/cart" className={styles.button}>
-						<span className={styles.button__span}>
-							{totalPrice} ₽
-						</span>
-						<hr className={styles.button__line} />
-						<div>
-							<img
-								className={styles.button__img}
-								src="/img/icons/cart.svg"
-								role="icon"
-								alt=""
-							/>
+					<>
+						<Search />
+						<Link to="/cart" className={styles.button}>
 							<span className={styles.button__span}>
-								{itemsLength}
+								{totalPrice} ₽
 							</span>
-						</div>
-					</Link>
+							<hr className={styles.button__line} />
+							<div>
+								<img
+									className={styles.button__img}
+									src="/img/icons/cart.svg"
+									role="icon"
+									alt=""
+								/>
+								<span className={styles.button__span}>
+									{itemsLength}
+								</span>
+							</div>
+						</Link>
+					</>
 				)}
 			</header>
 			<hr className={styles.line} />
