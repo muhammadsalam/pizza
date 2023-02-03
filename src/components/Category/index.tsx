@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import styles from "./index.module.scss";
 
 export const categories = [
@@ -15,7 +15,7 @@ type CategoryProps = {
 	onClickCategory: (index: number) => void;
 };
 
-const Category: FC<CategoryProps> = ({ categoryId, onClickCategory }) => {
+const Category: FC<CategoryProps> = memo(({ categoryId, onClickCategory }) => {
 	const getClass = (userIndex: number) =>
 		categoryId === userIndex ? styles.active : "";
 
@@ -34,6 +34,6 @@ const Category: FC<CategoryProps> = ({ categoryId, onClickCategory }) => {
 	};
 
 	return <nav className={styles.category}>{listRender()}</nav>;
-};
+});
 
 export default Category;

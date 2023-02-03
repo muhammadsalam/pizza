@@ -16,7 +16,7 @@ import {
 } from "../../redux/slices/filterSlice";
 import QueryString from "qs";
 import { useNavigate } from "react-router";
-import { FC, useRef, useEffect } from "react";
+import { FC, useRef, useEffect, useCallback } from "react";
 import { fetchPizzas, getPizzasData } from "../../redux/slices/pizzasSlice";
 import InfoBlock from "../../components/InfoBlock";
 import { useAppDispatch } from "../../redux/store";
@@ -32,9 +32,9 @@ const Home: FC = () => {
 	const { categoryId, sort, search, currentPage } = useSelector(getFilters);
 
 	//? Категория
-	const onClickCategory = (id: number) => {
+	const onClickCategory = useCallback((id: number) => {
 		dispatch(setCategoryId(id));
-	};
+	}, []);
 
 	//? Страница пагинации
 	const setPage = (pageIndex: number) => {
@@ -63,8 +63,6 @@ const Home: FC = () => {
 			const queryParams = QueryString.parse(
 				window.location.search.substring(1)
 			) as unknown as FilterSliceState & { sortProperty?: string };
-
-			console.log(queryParams);
 
 			const sort = selectorNames.find(
 				(obj) => obj.property === queryParams.sortProperty
