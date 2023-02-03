@@ -37,7 +37,7 @@ const Search: FC = () => {
 	};
 
 	const onSubmitForm = (event: FormEvent<HTMLFormElement>) => {
-		dispatch(setSearch(inputRef.current?.value));
+		inputRef.current && dispatch(setSearch(inputRef.current.value));
 		event.preventDefault();
 		return false;
 	};

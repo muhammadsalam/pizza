@@ -1,7 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { getCart } from "../../redux/slices/cartSlice";
 import { setFilters } from "../../redux/slices/filterSlice";
+import { useAppDispatch } from "../../redux/store";
 import Search from "../Search";
 import styles from "./Header.module.scss";
 
@@ -14,7 +15,7 @@ function Header() {
 
 	const { pathname } = useLocation();
 
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const handleLogoClick = () => {
 		dispatch(
 			setFilters({
@@ -24,6 +25,7 @@ function Header() {
 					property: "rating",
 				},
 				currentPage: 1,
+				search: "",
 			})
 		);
 	};

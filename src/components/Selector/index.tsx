@@ -2,15 +2,10 @@ import { FC, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./index.module.scss";
 
-import { setSort } from "../../redux/slices/filterSlice";
+import { setSort, SortType } from "../../redux/slices/filterSlice";
 import useOnClickOutside from "../../hooks/useClickOutside";
 
-type selectorItem = {
-	name: string;
-	property: string;
-};
-
-export const selectorNames: selectorItem[] = [
+export const selectorNames: SortType[] = [
 	{ name: "Популярности", property: "-rating" },
 	{ name: "Популярности", property: "rating" },
 	{ name: "Цене", property: "-price" },
@@ -18,7 +13,7 @@ export const selectorNames: selectorItem[] = [
 	{ name: "Алфавиту", property: "title" },
 ];
 
-const Selector: FC<{ sort: selectorItem }> = ({ sort }) => {
+const Selector: FC<{ sort: SortType }> = ({ sort }) => {
 	//_ Открытие и закрытие тулбара
 	const [isVisible, setIsVisible] = useState(false);
 	const handleSelectOpen = () => {
@@ -28,7 +23,7 @@ const Selector: FC<{ sort: selectorItem }> = ({ sort }) => {
 	const dispatch = useDispatch();
 
 	//_ Клик на элемент сортировки [популярности, цене, алфавиту]
-	const onClickSort = (item: selectorItem) => {
+	const onClickSort = (item: SortType) => {
 		handleSelectOpen();
 		dispatch(setSort(item));
 	};

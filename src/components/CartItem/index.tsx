@@ -1,7 +1,12 @@
 import { FC } from "react";
 import { useDispatch } from "react-redux";
 import { CartItemProps } from "../../pages/Cart";
-import { addItem, minusItem, removeItem } from "../../redux/slices/cartSlice";
+import {
+	addItem,
+	minusItem,
+	plusItem,
+	removeItem,
+} from "../../redux/slices/cartSlice";
 
 import styles from "./index.module.scss";
 
@@ -17,7 +22,7 @@ const CartItem: FC<CartItemProps> = ({
 	const dispatch = useDispatch();
 
 	const handleItemPlus = () => {
-		dispatch(addItem({ token, price }));
+		dispatch(plusItem({ token, price }));
 	};
 
 	const handleItemMinus = () => {

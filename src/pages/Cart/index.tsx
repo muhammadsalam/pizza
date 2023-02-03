@@ -27,10 +27,13 @@ const Cart: FC = () => {
 		0
 	);
 
-	const RenderList = () =>
-		items.map((item: CartItemProps) => (
-			<CartItem key={item.token} {...item} />
-		));
+	const RenderList = () => (
+		<>
+			{items.map((item: CartItemProps) => (
+				<CartItem key={item.token} {...item} />
+			))}
+		</>
+	);
 
 	const handleClearItems = () => {
 		dispatch(clearItems());

@@ -1,7 +1,11 @@
-import { FC, MouseEvent, useState } from "react";
+import { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { addItem, getCartItemByToken } from "../../redux/slices/cartSlice";
+import {
+	addItem,
+	CartItem,
+	getCartItemByToken,
+} from "../../redux/slices/cartSlice";
 import styles from "./index.module.scss";
 
 export const typeNames = ["тонкое", "традиционное"];
@@ -35,7 +39,7 @@ const Card: FC<CartProps> = ({
 	const amount = cartItem ? cartItem.count : 0;
 
 	const handleAddItem = () => {
-		const item = {
+		const item: CartItem = {
 			id,
 			title,
 			pizzaUrl,
@@ -43,6 +47,8 @@ const Card: FC<CartProps> = ({
 			size: sizes[activeSize],
 			type: typeNames[activeType],
 			token,
+			rating,
+			count: 0,
 		};
 
 		dispatch(addItem(item));
