@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from "react";
+import { FC, memo, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./index.module.scss";
 
@@ -13,7 +13,7 @@ export const selectorNames: SortType[] = [
 	{ name: "Алфавиту", property: "title" },
 ];
 
-const Selector: FC<{ sort: SortType }> = ({ sort }) => {
+const Selector: FC<{ sort: SortType }> = memo(({ sort }) => {
 	//_ Открытие и закрытие тулбара
 	const [isVisible, setIsVisible] = useState(false);
 	const handleSelectOpen = () => {
@@ -77,6 +77,6 @@ const Selector: FC<{ sort: SortType }> = ({ sort }) => {
 			</div>
 		</div>
 	);
-};
+});
 
 export default Selector;
