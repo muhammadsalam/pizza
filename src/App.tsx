@@ -1,18 +1,38 @@
+import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import InfoBlock from "./components/InfoBlock";
 import MainLayout from "./layouts/MainLayout";
-import Cart from "./pages/Cart";
 import Home from "./pages/Home";
-import PizzaDetail from "./pages/PizzaDetail";
+
+const Cart = lazy(() => import(/* webpackChunkName: 'Cart' */ "./pages/Cart"));
+const PizzaDetail = lazy(
+	() => import(/* webpackChunkName: 'PizzaDetail' */ "./pages/PizzaDetail")
+);
 
 function App() {
 	return (
 		<Routes>
 			<Route path="/" element={<MainLayout />}>
 				<Route path="" element={<Home />} />
-				<Route path="cart" element={<Cart />} />
-				<Route path="pizzas/:id" element={<PizzaDetail />} />
+				<Route
+					path="cart"
+					element={
+						<Suspense fallback={<div>Загрузка корзины..</div>}>
+							<Cart />
+						</Suspense>
+					}
+				/>
+				<Route
+					path="pizzas/:id"
+					element={
+						<Suspense
+							fallback={<div>Загрузка компонента пиццы...</div>}
+						>
+							<PizzaDetail />
+						</Suspense>
+					}
+				/>
 				<Route
 					path="*"
 					element={
