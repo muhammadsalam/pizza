@@ -13,7 +13,7 @@ export const selectorNames: SortType[] = [
 	{ name: "Алфавиту", property: "title" },
 ];
 
-const Selector: FC<{ sort: SortType }> = memo(({ sort }) => {
+export const Selector: FC<{ sort: SortType }> = memo(({ sort }) => {
 	//_ Открытие и закрытие тулбара
 	const [isVisible, setIsVisible] = useState(false);
 	const handleSelectOpen = () => {
@@ -78,5 +78,3 @@ const Selector: FC<{ sort: SortType }> = memo(({ sort }) => {
 		</div>
 	);
 });
-
-export default Selector;

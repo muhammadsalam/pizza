@@ -10,7 +10,7 @@ import {
 
 import styles from "./index.module.scss";
 
-const CartItem: FC<CartItemProps> = ({
+export const CartItem: FC<CartItemProps> = ({
 	token,
 	price,
 	title,
@@ -70,5 +70,3 @@ const CartItem: FC<CartItemProps> = ({
 		</li>
 	);
 };
-
-export default CartItem;

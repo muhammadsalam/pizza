@@ -1,13 +1,13 @@
-import { useEffect, useRef } from "react";
+import { FC, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { getCart } from "../../redux/slices/cartSlice";
 import { setFilters } from "../../redux/slices/filterSlice";
 import { useAppDispatch } from "../../redux/store";
-import Search from "../Search";
+import { Search } from "../"; // components folder
 import styles from "./Header.module.scss";
 
-function Header() {
+export const Header: FC = () => {
 	const { items, totalPrice } = useSelector(getCart);
 
 	const itemsLength = items.reduce(
@@ -82,6 +82,4 @@ function Header() {
 			<hr className={styles.line} />
 		</>
 	);
-}
-
-export default Header;
+};

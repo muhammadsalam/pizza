@@ -1,12 +1,10 @@
 import styles from "./index.module.scss";
 
-import Card from "../../components/Card";
-import Skeleton from "../../components/Card/Skeleton";
-import Category from "../../components/Category";
-import Selector, { selectorNames } from "../../components/Selector";
-import Pagination from "../../components/Pagination";
-
+import { FC, useRef, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
+import QueryString from "qs";
+
 import {
 	FilterSliceState,
 	getFilters,
@@ -14,12 +12,19 @@ import {
 	setCurrentPage,
 	setFilters,
 } from "../../redux/slices/filterSlice";
-import QueryString from "qs";
-import { useNavigate } from "react-router";
-import { FC, useRef, useEffect, useCallback } from "react";
+
 import { fetchPizzas, getPizzasData } from "../../redux/slices/pizzasSlice";
-import InfoBlock from "../../components/InfoBlock";
 import { useAppDispatch } from "../../redux/store";
+
+import {
+	Card,
+	Skeleton,
+	Category,
+	Selector,
+	selectorNames,
+	Pagination,
+	InfoBlock,
+} from "../../components";
 
 const Home: FC = () => {
 	const navigate = useNavigate();

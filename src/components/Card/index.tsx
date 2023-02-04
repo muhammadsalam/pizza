@@ -21,7 +21,7 @@ type CartProps = {
 	rating: number;
 };
 
-const Card: FC<CartProps> = ({
+export const Card: FC<CartProps> = ({
 	id,
 	title,
 	pizzaUrl,
@@ -121,5 +121,3 @@ const Card: FC<CartProps> = ({
 		</div>
 	);
 };
-
-export default Card;

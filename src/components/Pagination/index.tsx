@@ -7,7 +7,7 @@ type PaginationProps = {
 	setPage: (pageIndex: number) => void;
 };
 
-const Pagination: FC<PaginationProps> = ({ currentPage, setPage }) => {
+export const Pagination: FC<PaginationProps> = ({ currentPage, setPage }) => {
 	return (
 		<ReactPaginate
 			onPageChange={({ selected }) => setPage(++selected)}
@@ -29,5 +29,3 @@ const Pagination: FC<PaginationProps> = ({ currentPage, setPage }) => {
 		/>
 	);
 };
-
-export default Pagination;

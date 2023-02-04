@@ -2,8 +2,7 @@ import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import CartItem from "../../components/CartItem";
-import InfoBlock from "../../components/InfoBlock";
+import { CartItem, InfoBlock } from "../../components";
 import { clearItems, getCart } from "../../redux/slices/cartSlice";
 
 import styles from "./index.module.scss";

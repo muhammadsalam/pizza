@@ -9,7 +9,7 @@ type InfoBlockProps = {
 	button?: boolean;
 };
 
-const InfoBlock: FC<InfoBlockProps> = ({
+export const InfoBlock: FC<InfoBlockProps> = ({
 	title,
 	description,
 	children,
@@ -37,5 +37,3 @@ const InfoBlock: FC<InfoBlockProps> = ({
 		</div>
 	);
 };
-
-export default InfoBlock;

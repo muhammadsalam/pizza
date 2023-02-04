@@ -15,25 +15,25 @@ type CategoryProps = {
 	onClickCategory: (index: number) => void;
 };
 
-const Category: FC<CategoryProps> = memo(({ categoryId, onClickCategory }) => {
-	const getClass = (userIndex: number) =>
-		categoryId === userIndex ? styles.active : "";
+export const Category: FC<CategoryProps> = memo(
+	({ categoryId, onClickCategory }) => {
+		const getClass = (userIndex: number) =>
+			categoryId === userIndex ? styles.active : "";
 
-	const listRender = () => {
-		return categories.map((name, index) => {
-			return (
-				<button
-					key={index}
-					onClick={() => onClickCategory(index)}
-					className={getClass(index)}
-				>
-					{name}
-				</button>
-			);
-		});
-	};
+		const listRender = () => {
+			return categories.map((name, index) => {
+				return (
+					<button
+						key={index}
+						onClick={() => onClickCategory(index)}
+						className={getClass(index)}
+					>
+						{name}
+					</button>
+				);
+			});
+		};
 
-	return <nav className={styles.category}>{listRender()}</nav>;
-});
-
-export default Category;
+		return <nav className={styles.category}>{listRender()}</nav>;
+	}
+);

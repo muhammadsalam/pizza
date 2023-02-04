@@ -1,7 +1,7 @@
 import { FC, ReactElement, useEffect } from "react";
 import { useLocation } from "react-router";
 
-const ScrollToTop: FC<{ children?: ReactElement }> = (props) => {
+export const ScrollToTop: FC<{ children?: ReactElement }> = (props) => {
 	const location = useLocation();
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -9,5 +9,3 @@ const ScrollToTop: FC<{ children?: ReactElement }> = (props) => {
 
 	return <>{props.children}</>;
 };
-
-export default ScrollToTop;

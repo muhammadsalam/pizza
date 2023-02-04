@@ -1,7 +1,7 @@
 import { FC } from "react";
 import ContentLoader from "react-content-loader";
 
-const Skeleton: FC<{ className: string; key: number }> = (props) => (
+export const Skeleton: FC<{ className: string; key: number }> = (props) => (
 	<ContentLoader
 		speed={2}
 		width={282.5}
@@ -18,5 +18,3 @@ const Skeleton: FC<{ className: string; key: number }> = (props) => (
 		<rect x="141" y="452" rx="20" ry="20" width="140" height="38" />
 	</ContentLoader>
 );
-
-export default Skeleton;
